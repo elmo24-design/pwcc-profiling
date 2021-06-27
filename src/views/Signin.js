@@ -107,7 +107,7 @@ const Signin = () => {
                <img src={logo} alt="logo" className="logo" />
             </div>
             <form noValidate autoComplete="off" onSubmit={handleSubmit} className="form">
-               <h1>PWCC Profiling App</h1>
+               <h1>PWCC Profiling Application</h1>
                <TextField
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}

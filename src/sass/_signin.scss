@@ -1,34 +1,34 @@
-.sign-in{
-   display: flex;
-   justify-content: center;
-   align-items: center;
-   height: 100vh;
-   width: 100vw;
-   position: relative;
-   background-color: #f9f9f9;
-   .card{
-      padding:0 2rem 2rem 2rem;
-      width: 25rem;
-      margin: 0 1rem;
-   }
-   .form{
-      margin-top: 6rem;
-   }
-   .logo{
-      width: 7rem;
-      position: absolute;
-      margin-top: -3.8rem;
-      margin-left: 6.6rem;
-   }
-   h1{
-      font-family: 'Poppins', sans-serif;
-      text-transform: uppercase;
-      font-size: 1.2rem;
-      text-align: center;
-      color: rgb(86, 42, 107);
-   }
-   .error{
-      color: red;
-      padding-bottom: 1rem;
-   }
+.sign-in {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  width: 100vw;
+  position: relative;
+  background-color: #f9f9f9;
+  .card {
+    padding: 0 2rem 2rem 2rem;
+    width: 25rem;
+    margin: 0 1rem;
+  }
+  .form {
+    margin-top: 6rem;
+  }
+  .logo {
+    width: 7rem;
+    position: absolute;
+    margin-top: -3.8rem;
+    margin-left: 6.6rem;
+  }
+  h1 {
+    font-family: "Poppins", sans-serif;
+    text-transform: uppercase;
+    font-size: 1.2rem;
+    text-align: center;
+    color: rgb(86, 42, 107);
+  }
+  .error {
+    color: red;
+    padding-bottom: 1rem;
+  }
 }
