@@ -28,7 +28,7 @@ const drawerWidth = 250
 const useStyles = makeStyles((theme) => {
    return {
       page:{
-         background: '#f9f9f9',
+         // background: '#f9f9f9',
          width: '100%',
          padding: theme.spacing(3)
       },
@@ -37,7 +37,8 @@ const useStyles = makeStyles((theme) => {
            width: drawerWidth,
            flexShrink: 0,
          },
-       },
+         zIndex: '1',
+      },
       drawerPaper: {
          width: drawerWidth
       },
@@ -78,7 +79,8 @@ const useStyles = makeStyles((theme) => {
          marginLeft: theme.spacing(2)
       },
       btn:{
-         color: 'white'
+         color: 'white',
+         marginRight: '-10px'
       },
       icon:{
          fontSize: '19px',

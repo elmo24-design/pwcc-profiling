@@ -1,0 +1,26 @@
+.container-officers {
+  margin-top: 1rem;
+}
+.heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  .left {
+    display: flex;
+    align-items: center;
+    h1 {
+      font-size: 1.8rem;
+      padding-left: 10px;
+      color: #ff00a8;
+    }
+  }
+  .right {
+    h1 {
+      color: #ff00a8;
+      font-size: 1.6rem;
+    }
+  }
+}
+.search-field {
+  margin-top: 1.8rem;
+}

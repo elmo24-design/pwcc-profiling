@@ -1,7 +1,8 @@
 import { Route, Switch } from "react-router-dom";
 import { AuthProvider } from "./contexts/AuthContext";
 //views
-import Home from "./views/Home";
+import Dashboard from "./views/Dashboard";
+import Officers from "./views/Officers";
 import Signin from "./views/Signin";
 //components
 import Layout from "./components/Layout";
@@ -16,7 +17,7 @@ const theme = createMuiTheme({
         main: '#673ab7'
       },
       secondary: {
-         main: '#f50057',
+         main: '#FF00A8',
       }
    },
    // palette: {
@@ -42,7 +43,10 @@ function App() {
                   </Route>
                   <Layout>
                      <Route path="/dashboard">
-                        <Home />
+                        <Dashboard />
+                     </Route>
+                     <Route path="/officers">
+                        <Officers />
                      </Route>
                   </Layout>
                </Switch>
