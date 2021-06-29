@@ -4,6 +4,28 @@ import { makeStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 
+const backdrop = {
+    hidden: {
+        opacity: 0,
+    },
+    visible: {
+        opacity: 1
+    }
+}
+const modal = {
+    hidden: {
+        y: "-100vh",
+        opacity: 0
+    },
+    visible: {
+        y: '50px',
+        opacity: 1,
+        transition: {
+            delay: 0.2
+        }
+    }
+}
+
 const useStyles = makeStyles((theme) => ({
     field:{
         marginBottom: '10px'
@@ -15,7 +37,18 @@ const useStyles = makeStyles((theme) => ({
         marginLeft: '10px'
     },
     actionDiv:{
-        marginTop: '10px'
+        marginTop: '20px'
+    },
+    add:{
+        marginLeft: '14px',
+        marginBottom: '18px'
+    },
+    arrayDiv:{
+        marginTop: '20px',
+        marginBottom: '10px'
+    },
+    span:{
+        fontWeight: 'normal'
     }
  }));
 
@@ -68,33 +101,39 @@ const useStyles = makeStyles((theme) => ({
       value: 'Membership Committee',
       label: 'Membership Committee',
     },
+    {
+        value: 'Member',
+        label: 'Member',
+    },
   ];
 
-const backdrop = {
-    hidden: {
-        opacity: 0,
-    },
-    visible: {
-        opacity: 1
-    }
-}
-const modal = {
-    hidden: {
-        y: "-100vh",
-        opacity: 0
-    },
-    visible: {
-        y: '50px',
-        opacity: 1,
-        transition: {
-            delay: 0.2
-        }
-    }
-}
 
 const AddModal = ({setAddModal}) => {
     const classes = useStyles()
+
+    //personal Info states
+    const [name, setName] = useState('')
+    const [civilStatus, setCivilStatus] = useState('')
+    const [birthPlace, setBirthPlace] = useState('')
+    const [birthDate, setBirthDate] = useState('')
+    const [address, setAddress] = useState('')
+    const [occupation, setOccupation] = useState('')
+    const [salary, setSalary] = useState('')
+    const [region, setRegion] = useState('')
     const [position, setPosition] = useState('')
+    const [officeAdd, setOfficeAdd] = useState('')
+    const [father, setFather] = useState('')
+    const [mother, setMother] = useState('')
+    const [spouse, setSpouse] = useState('')
+    const [spouseOccupation,setSpouseOccupation] = useState('')
+
+    const [child,setChild] = useState('')
+    const [beneficiary,setBeneficiary] = useState('')
+
+    //Arrays
+    const [children,setChildren] = useState([])
+    const [beneficiaries,setBeneficiaries] = useState([])
+
 
     const handleChange = (event) => {
       setPosition(event.target.value);
@@ -104,6 +143,11 @@ const AddModal = ({setAddModal}) => {
         if(e.target.classList.contains('backdrop')){
             setAddModal(false)
         }
+    }
+
+    const addChild = () => {
+        children.push( [...children], child)
+        console.log(children)
     }
 
     return ( 
@@ -118,10 +162,68 @@ const AddModal = ({setAddModal}) => {
                 <h1>Add an Officer...</h1>
                 <form className={classes.form}>
                     <TextField id="standard-basic" 
-                        label="First Name" 
+                        label="Name" 
                         fullWidth 
                         className={classes.field} 
                         autoComplete="off"
+                        value={name}
+                        onChange={(e) => setName(e.target.value)}
+                    />
+                    <TextField id="standard-basic" 
+                        label="Civil Status" 
+                        fullWidth 
+                        className={classes.field} 
+                        autoComplete="off"
+                        value={civilStatus}
+                        onChange={(e) => setCivilStatus(e.target.value)}
+                    />
+                    <TextField id="standard-basic" 
+                        label="Birth Place" 
+                        fullWidth 
+                        className={classes.field} 
+                        autoComplete="off"
+                        value={birthPlace}
+                        onChange={(e) => setBirthPlace(e.target.value)}
+                    />
+                    <TextField id="standard-basic" 
+                        label="Date of Birth" 
+                        fullWidth 
+                        className={classes.field} 
+                        autoComplete="off"
+                        value={birthDate}
+                        onChange={(e) => setBirthDate(e.target.value)}
+                    />
+                    <TextField id="standard-basic" 
+                        label="Present Address" 
+                        fullWidth 
+                        className={classes.field} 
+                        autoComplete="off"
+                        value={address}
+                        onChange={(e) => setAddress(e.target.value)}
+                    />
+                    <TextField id="standard-basic" 
+                        label="Occupation" 
+                        fullWidth 
+                        className={classes.field} 
+                        autoComplete="off"
+                        value={occupation}
+                        onChange={(e) => setOccupation(e.target.value)}
+                    />
+                    <TextField id="standard-basic" 
+                        label="Salary (Month) Php " 
+                        fullWidth 
+                        className={classes.field} 
+                        autoComplete="off"
+                        value={salary}
+                        onChange={(e) => setSalary(e.target.value)}
+                    />
+                    <TextField id="standard-basic" 
+                        label="Program/Region" 
+                        fullWidth 
+                        className={classes.field} 
+                        autoComplete="off"
+                        value={region}
+                        onChange={(e) => setRegion(e.target.value)}
                     />
                     <TextField
                         select
@@ -141,119 +243,77 @@ const AddModal = ({setAddModal}) => {
                         ))}
                     </TextField>
                     <TextField id="standard-basic" 
-                        label="Nickname" 
+                        label="Office Address" 
                         fullWidth 
                         className={classes.field} 
                         autoComplete="off"
+                        value={officeAdd}
+                        onChange={(e) => setOfficeAdd(e.target.value)}
                     />
                     <TextField id="standard-basic" 
-                        label="Municipal Address" 
+                        label="Name of Father" 
                         fullWidth 
                         className={classes.field} 
                         autoComplete="off"
+                        value={father}
+                        onChange={(e) => setFather(e.target.value)}
                     />
                     <TextField id="standard-basic" 
-                        label="Date of Birth" 
+                        label="Name of Mother" 
                         fullWidth 
                         className={classes.field} 
                         autoComplete="off"
-                    />
+                        value={mother}
+                        onChange={(e) => setMother(e.target.value)}
+                    />  
                     <TextField id="standard-basic" 
-                        label="Age" 
+                        label="Name of Spouse (if Married)" 
                         fullWidth 
                         className={classes.field} 
                         autoComplete="off"
-                    />
-                    <TextField id="standard-basic" 
-                        label="Civil Status" 
-                        fullWidth 
-                        className={classes.field} 
-                        autoComplete="off"
-                    />
-                    <TextField id="standard-basic" 
-                        label="Religion" 
-                        fullWidth 
-                        className={classes.field} 
-                        autoComplete="off"
-                    />
-                    <TextField id="standard-basic" 
-                        label="Highest Educational Attainment" 
-                        fullWidth 
-                        className={classes.field} 
-                        autoComplete="off"
+                        value={spouse}
+                        onChange={(e) => setSpouse(e.target.value)}
                     />
                     <TextField id="standard-basic" 
                         label="Occupation" 
                         fullWidth 
                         className={classes.field} 
                         autoComplete="off"
+                        value={spouseOccupation}
+                        onChange={(e) => setSpouseOccupation(e.target.value)}
                     />
-                    <TextField id="standard-basic" 
-                        label="Contact No." 
-                        fullWidth 
-                        className={classes.field} 
-                        autoComplete="off"
-                    />
-                    <TextField id="standard-basic" 
-                        label="Mother's Name" 
-                        fullWidth 
-                        className={classes.field} 
-                        autoComplete="off"
-                    />
-                    <TextField id="standard-basic" 
-                        label="Father's Name" 
-                        fullWidth 
-                        className={classes.field} 
-                        autoComplete="off"
-                    />
-                    <TextField id="standard-basic" 
-                        label="Name of Spouse" 
-                        fullWidth 
-                        className={classes.field} 
-                        autoComplete="off"
-                    />
-                    <TextField id="standard-basic" 
-                        label="Nickname" 
-                        fullWidth 
-                        className={classes.field} 
-                        autoComplete="off"
-                    />
-                    <TextField id="standard-basic" 
-                        label="Date of Birth" 
-                        fullWidth 
-                        className={classes.field} 
-                        autoComplete="off"
-                    />
-                    <TextField id="standard-basic" 
-                        label="Age" 
-                        fullWidth 
-                        className={classes.field} 
-                        autoComplete="off"
-                    />
-                    <TextField id="standard-basic" 
-                        label="Highest Educational Attainment" 
-                        fullWidth 
-                        className={classes.field} 
-                        autoComplete="off"
-                    />
-                    <TextField id="standard-basic" 
-                        label="Occupation" 
-                        fullWidth 
-                        className={classes.field} 
-                        autoComplete="off"
-                    />
-                    <TextField id="standard-basic" 
-                        label="Number of Children" 
-                        fullWidth 
-                        className={classes.field} 
-                        autoComplete="off"
-                    />
-                    <TextField id="standard-basic" 
-                        label="Person to Notify In Case of Emergency" 
-                        fullWidth 
-                        className={classes.field} 
-                        autoComplete="off"
-                    />
+                    <div className={classes.arrayDiv}>  
+                        <h4 className={classes.span}>Name/Age of Children: (ex. format: John Doe - 21) </h4>        
+                        <div className="add-child">
+                            <TextField id="standard-basic" 
+                                fullWidth 
+                                className={classes.field} 
+                                autoComplete="off"
+                                value={child}
+                                onChange={(e) => setChild(e.target.value)}
+                            />
+                            <Button variant="contained" 
+                                className={classes.add}
+                                onClick={addChild}
+                            >Add</Button>
+                        </div>   
+                    </div>
+                    <div className={classes.arrayDiv}>  
+                        <h4  className={classes.span}>Beneficiary/ies: </h4>        
+                        <div className="add-benef">
+                            <TextField id="standard-basic" 
+                                fullWidth 
+                                className={classes.field} 
+                                autoComplete="off"
+                                value={beneficiary}
+                                onChange={(e) => setBeneficiary(e.target.value)}
+                            />
+                            <Button variant="contained" 
+                                className={classes.add}
+                            >Add</Button>
+                        </div>   
+                    </div>
+                    
                     <div className={classes.actionDiv}>
                         <Button variant="contained" color="primary">
                             Save
