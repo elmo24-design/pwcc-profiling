@@ -28,7 +28,7 @@ const drawerWidth = 250
 const useStyles = makeStyles((theme) => {
    return {
       page:{
-         // background: '#f9f9f9',
+         background: '#f9f9f9',
          width: '100%',
          padding: theme.spacing(3)
       },
@@ -45,8 +45,18 @@ const useStyles = makeStyles((theme) => {
       root: {
          display: 'flex'
       },
+      listGroup:{
+         marginTop: '1rem'
+      },
       active: {
-         background: '#f4f4f4'
+         background: 'rgb(229, 229, 229)',
+         padding: '0.7rem 2rem',
+      },
+      list:{
+         padding: '0.7rem 2rem',
+      },
+      iconSide:{
+         color: '#5D43FF',
       },
       title: {
          padding: theme.spacing(2)
@@ -57,10 +67,10 @@ const useStyles = makeStyles((theme) => {
             marginLeft: drawerWidth,
           },
           zIndex: '1',
-          backgroundColor: '#651fff'
+          backgroundColor: '#5D43FF'
       },
-      iconSide:{
-         color: '#651fff'
+      text: {
+         fontSize: '3rem'
       },
       toolbar: theme.mixins.toolbar,
       date: {
@@ -112,22 +122,22 @@ const Layout = ({children}) => {
    const menuItems = [
       {
          text: 'Dashboard',
-         icon: <DashboardIcon className={classes.iconSide}/>,
+         icon: <DashboardIcon/>,
          path: '/dashboard'
       },
       {
          text: 'Officers',
-         icon: <SupervisedUserCircleIcon className={classes.iconSide}/>,
+         icon: <SupervisedUserCircleIcon/>,
          path: '/officers'
       },
       {
          text: 'Members',
-         icon: <PeopleIcon className={classes.iconSide}/>,
+         icon: <PeopleIcon/>,
          path: '/members'
       },
       {
          text: 'Archive',
-         icon: <ArchiveIcon className={classes.iconSide}/>,
+         icon: <ArchiveIcon/>,
          path: '/archive'
       }
    ]
@@ -139,16 +149,16 @@ const Layout = ({children}) => {
          </div>
          <Divider />
          {/* list links */}
-         <List>
+         <List className={classes.listGroup}>
             {menuItems.map(item => (
                <ListItem 
                   button 
-                  key={item.text} 
+                  key={item.text}
                   onClick={() => history.push(item.path)}
-                  className={location.pathname === item.path ? classes.active : null}
+                  className={location.pathname === item.path ? classes.active : classes.list}
                   >
-                  <ListItemIcon>{item.icon}</ListItemIcon>
-                  <ListItemText primary={item.text}></ListItemText>
+                  <ListItemIcon className={classes.iconSide}>{item.icon}</ListItemIcon>
+                  <ListItemText primary={item.text} className={classes.text}></ListItemText>
                </ListItem>
             ))}
          </List>

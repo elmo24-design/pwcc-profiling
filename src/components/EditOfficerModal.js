@@ -4,7 +4,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import { useRef } from 'react';
-import { projectFirestore, timestamp } from '../firebase/config';
+import { projectFirestore } from '../firebase/config';
 
 const backdrop = {
     hidden: {
@@ -114,41 +114,38 @@ const useStyles = makeStyles((theme) => ({
   ];
 
 
-const AddModal = ({setAddModal}) => {
+const EditOfficerModal = ({officer,setOfficer}) => {
     const classes = useStyles()
     const modalRef = useRef()
     const [isPending, setIsPending] = useState(false)
     //personal Info states
-    const [name, setName] = useState('')
-    const [civilStatus, setCivilStatus] = useState('')
-    const [birthPlace, setBirthPlace] = useState('')
-    const [birthDate, setBirthDate] = useState('')
-    const [address, setAddress] = useState('')
-    const [occupation, setOccupation] = useState('')
-    const [salary, setSalary] = useState('')
-    const [region, setRegion] = useState('')
-    const [position, setPosition] = useState('')
-    const [officeAdd, setOfficeAdd] = useState('')
-    const [father, setFather] = useState('')
-    const [mother, setMother] = useState('')
-    const [spouse, setSpouse] = useState('')
-    const [spouseOccupation,setSpouseOccupation] = useState('')
-    
+    const [name, setName] = useState(officer.name)
+    const [civilStatus, setCivilStatus] = useState(officer.civilStatus)
+    const [birthPlace, setBirthPlace] = useState(officer.birthPlace)
+    const [birthDate, setBirthDate] = useState(officer.birthDate)
+    const [address, setAddress] = useState(officer.presentAdd)
+    const [occupation, setOccupation] = useState(officer.occupation)
+    const [salary, setSalary] = useState(officer.salary)
+    const [region, setRegion] = useState(officer.region)
+    const [position, setPosition] = useState(officer.position)
+    const [officeAdd, setOfficeAdd] = useState(officer.officeAdd)
+    const [father, setFather] = useState(officer.father)
+    const [mother, setMother] = useState(officer.mother)
+    const [spouse, setSpouse] = useState(officer.spouse)
+    const [spouseOccupation,setSpouseOccupation] = useState(officer.spouseOccupation)
+
     let [child,setChild] = useState('')
     let [beneficiary,setBeneficiary] = useState('')
 
     //Arrays
-    let [children,setChildren] = useState([])
-    let [beneficiaries,setBeneficiaries] = useState([])
-
-    const colors = ['crimson','blue','yellow','green','orange','indigo','purple','teal','cyan','brown']
-    const random = Math.floor(Math.random() * 10);
+    let [children,setChildren] = useState(officer.children)
+    let [beneficiaries,setBeneficiaries] = useState(officer.beneficiaries)
     
     //Submit function
     const handleSubmit = (e) => {
        e.preventDefault()
        setIsPending(true)
-       projectFirestore.collection('officers').add({
+       projectFirestore.collection('officers').doc(officer.id).update({
           name: name,
           civilStatus: civilStatus,
           birthPlace: birthPlace,
@@ -165,12 +162,10 @@ const AddModal = ({setAddModal}) => {
           spouseOccupation: spouseOccupation,
           children: children,
           beneficiaries: beneficiaries,
-          status: true,
-          className: colors[random],
-          createdAt: timestamp()
+          status: officer.status,
        }).then(() => {
           setIsPending(false)
-          setAddModal(false)
+          setOfficer(null)
        }).catch(err => console.log(err))
     }
 
@@ -180,7 +175,7 @@ const AddModal = ({setAddModal}) => {
 
    //  const closeModal = (e) => {
    //      if(e.target.classList.contains('backdrop')){
-   //          setAddModal(false)
+   //          setOfficer(null)
    //      }
    //  }
 
@@ -232,7 +227,7 @@ const AddModal = ({setAddModal}) => {
             exit="hidden"
         >
             <motion.div className="modal" variants={modal}>
-                <h1>Add an Officer...</h1>
+                <h1>Edit Info...</h1>
                 <form className={classes.form}>
                     <TextField id="standard-basic" 
                         label="Name" 
@@ -432,7 +427,7 @@ const AddModal = ({setAddModal}) => {
                               </Button>
                               <Button variant="contained" 
                                  className={classes.btnCancel}
-                                 onClick={() => setAddModal(false)}
+                                 onClick={() => setOfficer(null)}
                               >Cancel</Button>
                           </div>
                        }
@@ -444,4 +439,4 @@ const AddModal = ({setAddModal}) => {
     );
 }
  
-export default AddModal;
+export default EditOfficerModal;
