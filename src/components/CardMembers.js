@@ -3,7 +3,6 @@ import EditIcon from '@material-ui/icons/Edit';
 import DeleteIcon from '@material-ui/icons/Delete';
 import { makeStyles } from '@material-ui/core/styles';
 import { Link } from 'react-router-dom';
-
 //colors
 import { pink,blue,yellow,green,orange,indigo,purple,teal,cyan,brown } from '@material-ui/core/colors';
 import { projectFirestore } from '../firebase/config';
@@ -24,47 +23,47 @@ const useStyles = makeStyles((theme) => ({
    avatar:{
       width: theme.spacing(6),
       height: theme.spacing(6),
-      backgroundColor: (officer) => {
-         if(officer.className === 'crimson'){
+      backgroundColor: (member) => {
+         if(member.className === 'crimson'){
             return pink[500]
          }
-         if(officer.className === 'blue'){
+         if(member.className === 'blue'){
             return blue[600]
          }
-         if(officer.className === 'yellow'){
+         if(member.className === 'yellow'){
             return yellow[600]
          }
-         if(officer.className === 'green'){
+         if(member.className === 'green'){
             return green[500]
          }
-         if(officer.className === 'orange'){
+         if(member.className === 'orange'){
             return orange[800]
          }
-         if(officer.className === 'indigo'){
+         if(member.className === 'indigo'){
             return indigo[500]
          }
-         if(officer.className === 'purple'){
+         if(member.className === 'purple'){
             return purple[500]
          }
-         if(officer.className === 'teal'){
+         if(member.className === 'teal'){
             return teal[500]
          }
-         if(officer.className === 'cyan'){
+         if(member.className === 'cyan'){
             return cyan[700]
          }
-         if(officer.className === 'brown'){
+         if(member.className === 'brown'){
             return brown[500]
          }
       }
    }
 }));
 
-const Cards = ({officer,setOfficer,setSnackBarRemoved}) => {
-   const classes = useStyles(officer)
+const CardMembers = ({member,setMember,setSnackBarRemoved}) => {
+   const classes = useStyles(member)
 
    const removeItem = () => {
       window.confirm('Are you sure you want to archive this data?') &&
-      projectFirestore.collection('officers').doc(officer.id).update({
+      projectFirestore.collection('members').doc(member.id).update({
          status: false
       }).then(() => setSnackBarRemoved(true))
    }
@@ -72,18 +71,17 @@ const Cards = ({officer,setOfficer,setSnackBarRemoved}) => {
    return ( 
       <Card className="card">
          <Avatar className={classes.avatar}>
-            {officer.name[0].toUpperCase()}
+            {member.name[0].toUpperCase()}
          </Avatar>
          <div className="right">
             <div className="details">
-               <Link to={`/officer/${officer.id}`} className={classes.link}>
-                  <p className="name">{officer.name}</p>
+               <Link to={`/member/${member.id}`} className={classes.link}>
+                  <p className="name">{member.name}</p>
                </Link>
-               <span>{officer.position}</span>
             </div>
             <div className="actions">
                <div>
-                  <EditIcon onClick={() => setOfficer(officer)}/>
+                  <EditIcon onClick={() => setMember(member)}/>
                </div>
                <div>
                   <DeleteIcon onClick={removeItem}/>
@@ -94,4 +92,4 @@ const Cards = ({officer,setOfficer,setSnackBarRemoved}) => {
    );
 }
  
-export default Cards;
+export default CardMembers;

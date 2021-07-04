@@ -6,19 +6,19 @@
   width: 100vw;
   position: relative;
   background-color: #f9f9f9;
-  .card {
+  .card-signin {
     padding: 0 2rem 2rem 2rem;
-    width: 25rem;
+    max-width: 23rem;
     margin: 0 1rem;
   }
   .form {
-    margin-top: 6rem;
+    margin-top: 6.5rem;
   }
   .logo {
     width: 7rem;
     position: absolute;
-    margin-top: -3.8rem;
-    margin-left: 6.6rem;
+    margin-top: -3.7rem;
+    margin-left: 5.8rem;
   }
   h1 {
     font-family: "Poppins", sans-serif;

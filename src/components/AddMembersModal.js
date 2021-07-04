@@ -4,7 +4,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import { useRef } from 'react';
-import { projectFirestore } from '../firebase/config';
+import { projectFirestore, timestamp } from '../firebase/config';
 
 const backdrop = {
     hidden: {
@@ -54,124 +54,69 @@ const useStyles = makeStyles((theme) => ({
     }
  }));
 
- const positions = [
-    {
-      value: '',
-      label: "",
-    },
-    {
-      value: 'Chairperson',
-      label: 'Chairperson',
-    },
-    {
-      value: 'Vice Chairperson',
-      label: 'Vice Chairperson',
-    },
-    {
-      value: 'Secretary',
-      label: 'Secretary',
-    },
-    {
-      value: 'Treasurer',
-      label: 'Treasurer',
-    },
-    {
-      value: 'General Manager',
-      label: 'General Manager',
-    },
-    {
-      value: 'Audit Committee',
-      label: 'Audit Committee',
-    },
-    {
-      value: 'Education Committee',
-      label: 'Education Committee',
-    },
-    {
-      value: 'Election Committee',
-      label: 'Election Committee',
-    },
-    {
-      value: 'Ethics Committee',
-      label: 'Ethics Committee',
-    },
-    {
-      value: 'GAD Committee',
-      label: 'GAD Committee',
-    },
-    {
-      value: 'Mediation Committee',
-      label: 'Mediation Committee',
-    }, 
-    {
-      value: 'Membership Committee',
-      label: 'Membership Committee',
-    },
-    {
-        value: 'Member',
-        label: 'Member',
-    },
-  ];
- //Civil Status Values
-   const civilStatuses = [
-      {
-      value: '',
-      label: "",
-      },
-      {
-      value: 'Single',
-      label: 'Single',
-      },
-      {
-      value: 'Engaged',
-      label: 'Engaged',
-      },
-      {
-      value: 'Married',
-      label: 'Married',
-      },
-      {
-      value: 'Widowed',
-      label: 'Widowed',
-      },
-      {
-      value: 'Separated',
-      label: 'Separated',
-      },
+  //Civil Status Values
+  const civilStatuses = [
+   {
+     value: '',
+     label: "",
+   },
+   {
+     value: 'Single',
+     label: 'Single',
+   },
+   {
+     value: 'Engaged',
+     label: 'Engaged',
+   },
+   {
+     value: 'Married',
+     label: 'Married',
+   },
+   {
+     value: 'Widowed',
+     label: 'Widowed',
+   },
+   {
+     value: 'Separated',
+     label: 'Separated',
+   },
  ];
 
-const EditOfficerModal = ({officer,setOfficer,setSnackBarUpdated}) => {
+const AddMembersModal = ({setAddMembersModal,setSnackBarAdded}) => {
     const classes = useStyles()
     const modalRef = useRef()
     const [isPending, setIsPending] = useState(false)
     //personal Info states
-    const [name, setName] = useState(officer.name)
-    const [civilStatus, setCivilStatus] = useState(officer.civilStatus)
-    const [birthPlace, setBirthPlace] = useState(officer.birthPlace)
-    const [birthDate, setBirthDate] = useState(officer.birthDate)
-    const [address, setAddress] = useState(officer.presentAdd)
-    const [occupation, setOccupation] = useState(officer.occupation)
-    const [salary, setSalary] = useState(officer.salary)
-    const [region, setRegion] = useState(officer.region)
-    const [position, setPosition] = useState(officer.position)
-    const [officeAdd, setOfficeAdd] = useState(officer.officeAdd)
-    const [father, setFather] = useState(officer.father)
-    const [mother, setMother] = useState(officer.mother)
-    const [spouse, setSpouse] = useState(officer.spouse)
-    const [spouseOccupation,setSpouseOccupation] = useState(officer.spouseOccupation)
-
+    const [name, setName] = useState('')
+    const [civilStatus, setCivilStatus] = useState('')
+    const [birthPlace, setBirthPlace] = useState('')
+    const [birthDate, setBirthDate] = useState('')
+    const [address, setAddress] = useState('')
+    const [occupation, setOccupation] = useState('')
+    const [salary, setSalary] = useState('')
+    const [region, setRegion] = useState('')
+  
+    const [officeAdd, setOfficeAdd] = useState('')
+    const [father, setFather] = useState('')
+    const [mother, setMother] = useState('')
+    const [spouse, setSpouse] = useState('')
+    const [spouseOccupation,setSpouseOccupation] = useState('')
+    
     let [child,setChild] = useState('')
     let [beneficiary,setBeneficiary] = useState('')
 
     //Arrays
-    let [children,setChildren] = useState(officer.children)
-    let [beneficiaries,setBeneficiaries] = useState(officer.beneficiaries)
+    let [children,setChildren] = useState([])
+    let [beneficiaries,setBeneficiaries] = useState([])
+
+    const colors = ['crimson','blue','yellow','green','orange','indigo','purple','teal','cyan','brown']
+    const random = Math.floor(Math.random() * 10);
     
     //Submit function
     const handleSubmit = (e) => {
        e.preventDefault()
        setIsPending(true)
-       projectFirestore.collection('officers').doc(officer.id).update({
+       projectFirestore.collection('members').add({
           name: name,
           civilStatus: civilStatus,
           birthPlace: birthPlace,
@@ -180,7 +125,7 @@ const EditOfficerModal = ({officer,setOfficer,setSnackBarUpdated}) => {
           occupation: occupation,
           salary: salary,
           region: region,
-          position: position,
+          position: 'member',
           officeAdd: officeAdd,
           father: father,
           mother: mother,
@@ -188,23 +133,25 @@ const EditOfficerModal = ({officer,setOfficer,setSnackBarUpdated}) => {
           spouseOccupation: spouseOccupation,
           children: children,
           beneficiaries: beneficiaries,
+          subscribedShares: 0,
+          paidUpShares: 0,
+          status: true,
+          className: colors[random],
+          createdAt: timestamp()
        }).then(() => {
           setIsPending(false)
-          setOfficer(null)
-          setSnackBarUpdated(true)
+          setAddMembersModal(false)
+          setSnackBarAdded(true)
        }).catch(err => console.log(err))
     }
 
-    const handleChange = (event) => {
-      setPosition(event.target.value);
-    };
     const handleChangeStatus = (event) => {
       setCivilStatus(event.target.value);
     };
 
    //  const closeModal = (e) => {
    //      if(e.target.classList.contains('backdrop')){
-   //          setOfficer(null)
+   //          setAddModal(false)
    //      }
    //  }
 
@@ -256,7 +203,7 @@ const EditOfficerModal = ({officer,setOfficer,setSnackBarUpdated}) => {
             exit="hidden"
         >
             <motion.div className="modal" variants={modal}>
-                <h1>Edit Info...</h1>
+                <h1>Add a Member...</h1>
                 <form className={classes.form} onSubmit={handleSubmit}>
                     <TextField id="standard-basic" 
                         label="Name" 
@@ -338,23 +285,6 @@ const EditOfficerModal = ({officer,setOfficer,setSnackBarUpdated}) => {
                         value={region}
                         onChange={(e) => setRegion(e.target.value)}
                     />
-                    <TextField
-                        select
-                        fullWidth
-                        className={classes.field}
-                        label="Select Position"
-                        value={position}
-                        onChange={handleChange}
-                        SelectProps={{
-                            native: true,
-                        }}
-                        >
-                        {positions.map((option) => (
-                            <option key={option.value} value={option.value}>
-                            {option.label}
-                            </option>
-                        ))}
-                    </TextField>
                     <TextField id="standard-basic" 
                         label="Office Address" 
                         fullWidth 
@@ -464,7 +394,7 @@ const EditOfficerModal = ({officer,setOfficer,setSnackBarUpdated}) => {
                               </Button>
                               <Button variant="contained" 
                                  className={classes.btnCancel}
-                                 onClick={() => setOfficer(null)}
+                                 onClick={() => setAddMembersModal(false)}
                               >Cancel</Button>
                           </div>
                        }
@@ -476,4 +406,4 @@ const EditOfficerModal = ({officer,setOfficer,setSnackBarUpdated}) => {
     );
 }
  
-export default EditOfficerModal;
+export default AddMembersModal;

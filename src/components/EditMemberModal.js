@@ -54,64 +54,6 @@ const useStyles = makeStyles((theme) => ({
     }
  }));
 
- const positions = [
-    {
-      value: '',
-      label: "",
-    },
-    {
-      value: 'Chairperson',
-      label: 'Chairperson',
-    },
-    {
-      value: 'Vice Chairperson',
-      label: 'Vice Chairperson',
-    },
-    {
-      value: 'Secretary',
-      label: 'Secretary',
-    },
-    {
-      value: 'Treasurer',
-      label: 'Treasurer',
-    },
-    {
-      value: 'General Manager',
-      label: 'General Manager',
-    },
-    {
-      value: 'Audit Committee',
-      label: 'Audit Committee',
-    },
-    {
-      value: 'Education Committee',
-      label: 'Education Committee',
-    },
-    {
-      value: 'Election Committee',
-      label: 'Election Committee',
-    },
-    {
-      value: 'Ethics Committee',
-      label: 'Ethics Committee',
-    },
-    {
-      value: 'GAD Committee',
-      label: 'GAD Committee',
-    },
-    {
-      value: 'Mediation Committee',
-      label: 'Mediation Committee',
-    }, 
-    {
-      value: 'Membership Committee',
-      label: 'Membership Committee',
-    },
-    {
-        value: 'Member',
-        label: 'Member',
-    },
-  ];
  //Civil Status Values
    const civilStatuses = [
       {
@@ -140,38 +82,38 @@ const useStyles = makeStyles((theme) => ({
       },
  ];
 
-const EditOfficerModal = ({officer,setOfficer,setSnackBarUpdated}) => {
+const EditMemberModal = ({member,setMember,setSnackBarUpdated}) => {
     const classes = useStyles()
     const modalRef = useRef()
     const [isPending, setIsPending] = useState(false)
     //personal Info states
-    const [name, setName] = useState(officer.name)
-    const [civilStatus, setCivilStatus] = useState(officer.civilStatus)
-    const [birthPlace, setBirthPlace] = useState(officer.birthPlace)
-    const [birthDate, setBirthDate] = useState(officer.birthDate)
-    const [address, setAddress] = useState(officer.presentAdd)
-    const [occupation, setOccupation] = useState(officer.occupation)
-    const [salary, setSalary] = useState(officer.salary)
-    const [region, setRegion] = useState(officer.region)
-    const [position, setPosition] = useState(officer.position)
-    const [officeAdd, setOfficeAdd] = useState(officer.officeAdd)
-    const [father, setFather] = useState(officer.father)
-    const [mother, setMother] = useState(officer.mother)
-    const [spouse, setSpouse] = useState(officer.spouse)
-    const [spouseOccupation,setSpouseOccupation] = useState(officer.spouseOccupation)
+    const [name, setName] = useState(member.name)
+    const [civilStatus, setCivilStatus] = useState(member.civilStatus)
+    const [birthPlace, setBirthPlace] = useState(member.birthPlace)
+    const [birthDate, setBirthDate] = useState(member.birthDate)
+    const [address, setAddress] = useState(member.presentAdd)
+    const [occupation, setOccupation] = useState(member.occupation)
+    const [salary, setSalary] = useState(member.salary)
+    const [region, setRegion] = useState(member.region)
+
+    const [officeAdd, setOfficeAdd] = useState(member.officeAdd)
+    const [father, setFather] = useState(member.father)
+    const [mother, setMother] = useState(member.mother)
+    const [spouse, setSpouse] = useState(member.spouse)
+    const [spouseOccupation,setSpouseOccupation] = useState(member.spouseOccupation)
 
     let [child,setChild] = useState('')
     let [beneficiary,setBeneficiary] = useState('')
 
     //Arrays
-    let [children,setChildren] = useState(officer.children)
-    let [beneficiaries,setBeneficiaries] = useState(officer.beneficiaries)
+    let [children,setChildren] = useState(member.children)
+    let [beneficiaries,setBeneficiaries] = useState(member.beneficiaries)
     
     //Submit function
     const handleSubmit = (e) => {
        e.preventDefault()
        setIsPending(true)
-       projectFirestore.collection('officers').doc(officer.id).update({
+       projectFirestore.collection('members').doc(member.id).update({
           name: name,
           civilStatus: civilStatus,
           birthPlace: birthPlace,
@@ -180,7 +122,6 @@ const EditOfficerModal = ({officer,setOfficer,setSnackBarUpdated}) => {
           occupation: occupation,
           salary: salary,
           region: region,
-          position: position,
           officeAdd: officeAdd,
           father: father,
           mother: mother,
@@ -190,14 +131,11 @@ const EditOfficerModal = ({officer,setOfficer,setSnackBarUpdated}) => {
           beneficiaries: beneficiaries,
        }).then(() => {
           setIsPending(false)
-          setOfficer(null)
+          setMember(null)
           setSnackBarUpdated(true)
        }).catch(err => console.log(err))
     }
 
-    const handleChange = (event) => {
-      setPosition(event.target.value);
-    };
     const handleChangeStatus = (event) => {
       setCivilStatus(event.target.value);
     };
@@ -338,23 +276,6 @@ const EditOfficerModal = ({officer,setOfficer,setSnackBarUpdated}) => {
                         value={region}
                         onChange={(e) => setRegion(e.target.value)}
                     />
-                    <TextField
-                        select
-                        fullWidth
-                        className={classes.field}
-                        label="Select Position"
-                        value={position}
-                        onChange={handleChange}
-                        SelectProps={{
-                            native: true,
-                        }}
-                        >
-                        {positions.map((option) => (
-                            <option key={option.value} value={option.value}>
-                            {option.label}
-                            </option>
-                        ))}
-                    </TextField>
                     <TextField id="standard-basic" 
                         label="Office Address" 
                         fullWidth 
@@ -464,7 +385,7 @@ const EditOfficerModal = ({officer,setOfficer,setSnackBarUpdated}) => {
                               </Button>
                               <Button variant="contained" 
                                  className={classes.btnCancel}
-                                 onClick={() => setOfficer(null)}
+                                 onClick={() => setMember(null)}
                               >Cancel</Button>
                           </div>
                        }
@@ -476,4 +397,4 @@ const EditOfficerModal = ({officer,setOfficer,setSnackBarUpdated}) => {
     );
 }
  
-export default EditOfficerModal;
+export default EditMemberModal;

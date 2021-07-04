@@ -1,9 +1,12 @@
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@200;400;500;600;700&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&display=swap');
 
 @import "signin";
 @import "navbar";
 @import "officers";
+@import "info";
+@import "dashboard";
 
 * {
   box-sizing: border-box;
@@ -13,7 +16,7 @@
 body {
   margin: 0;
   padding: 0;
-  font-family: "Quicksand", sans-serif;
+  font-family: 'Roboto', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
@@ -49,6 +52,9 @@ a {
     margin-bottom: 1rem;
     margin-top: 1rem;
   }
+}
+.modal-editShare{
+   overflow-y:hidden;
 }
 .add-child,
 .add-benef {

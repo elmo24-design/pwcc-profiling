@@ -1,8 +1,8 @@
 import { useState, useEffect } from "react";
 import { projectFirestore } from "../firebase/config";
 
-const useOfficers = (collection) => {
-   const [officers,setOfficers] = useState([])
+const useMembers = (collection) => {
+   const [members,setMembers] = useState([])
 
    useEffect(() => {
       const unsub = projectFirestore.collection(collection)
@@ -14,13 +14,13 @@ const useOfficers = (collection) => {
                doc.data().createdAt && results.push({...doc.data(), id: doc.id})
             }
          })
-         setOfficers(results)
+         setMembers(results)
       })
-
+      
       return (() => unsub())
    }, [collection])
 
-   return {officers}
+   return {members}
 }
  
-export default useOfficers;
+export default useMembers;

@@ -54,6 +54,7 @@ const useStyles = makeStyles((theme) => ({
     }
  }));
 
+ //positions values
  const positions = [
     {
       value: '',
@@ -112,9 +113,35 @@ const useStyles = makeStyles((theme) => ({
         label: 'Member',
     },
   ];
+  //Civil Status Values
+  const civilStatuses = [
+   {
+     value: '',
+     label: "",
+   },
+   {
+     value: 'Single',
+     label: 'Single',
+   },
+   {
+     value: 'Engaged',
+     label: 'Engaged',
+   },
+   {
+     value: 'Married',
+     label: 'Married',
+   },
+   {
+     value: 'Widowed',
+     label: 'Widowed',
+   },
+   {
+     value: 'Separated',
+     label: 'Separated',
+   },
+ ];
 
-
-const AddModal = ({setAddModal}) => {
+const AddModal = ({setAddModal,setSnackBarAdded}) => {
     const classes = useStyles()
     const modalRef = useRef()
     const [isPending, setIsPending] = useState(false)
@@ -165,17 +192,23 @@ const AddModal = ({setAddModal}) => {
           spouseOccupation: spouseOccupation,
           children: children,
           beneficiaries: beneficiaries,
+          subscribedShares: 0,
+          paidUpShares: 0,
           status: true,
           className: colors[random],
           createdAt: timestamp()
        }).then(() => {
           setIsPending(false)
           setAddModal(false)
+          setSnackBarAdded(true)
        }).catch(err => console.log(err))
     }
 
     const handleChange = (event) => {
       setPosition(event.target.value);
+    };
+    const handleChangeStatus = (event) => {
+      setCivilStatus(event.target.value);
     };
 
    //  const closeModal = (e) => {
@@ -233,7 +266,7 @@ const AddModal = ({setAddModal}) => {
         >
             <motion.div className="modal" variants={modal}>
                 <h1>Add an Officer...</h1>
-                <form className={classes.form}>
+                <form className={classes.form} onSubmit={handleSubmit}>
                     <TextField id="standard-basic" 
                         label="Name" 
                         fullWidth 
@@ -243,15 +276,24 @@ const AddModal = ({setAddModal}) => {
                         required
                         onChange={(e) => setName(e.target.value)}
                     />
-                    <TextField id="standard-basic" 
-                        label="Civil Status" 
-                        fullWidth 
-                        className={classes.field} 
-                        autoComplete="off"
-                        value={civilStatus}
+                    <TextField
+                        select
+                        fullWidth
                         required
-                        onChange={(e) => setCivilStatus(e.target.value)}
-                    />
+                        className={classes.field}
+                        label="Select Civil Status"
+                        value={civilStatus}
+                        onChange={handleChangeStatus}
+                        SelectProps={{
+                            native: true,
+                        }}
+                        >
+                        {civilStatuses.map((option) => (
+                            <option key={option.value} value={option.value}>
+                            {option.label}
+                            </option>
+                        ))}
+                    </TextField>
                     <TextField id="standard-basic" 
                         label="Birth Place" 
                         fullWidth 
@@ -426,7 +468,6 @@ const AddModal = ({setAddModal}) => {
                               <Button variant="contained" 
                                  color="primary" 
                                  type="submit"
-                                 onClick={handleSubmit}
                                  >
                                  Save
                               </Button>

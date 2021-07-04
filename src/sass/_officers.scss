@@ -9,17 +9,40 @@
     display: flex;
     align-items: center;
     h1 {
+      text-transform: uppercase;
       font-size: 1.8rem;
       padding-left: 10px;
       color: #ff00a8;
+    }
+    .archive-title{
+       color: rgb(177, 176, 176);
+       padding-left: 0;
+       margin-bottom: 3rem;
+    }
+    .member-title{
+      color: #5D43FF;
     }
   }
   .right {
     h1 {
       color: #ff00a8;
-      font-size: 1.6rem;
+      font-size: 1.4rem;
+      text-transform: uppercase;
+      span{
+         font-weight: normal;
+      }
+    }
+    .right-h1{
+      color: #5D43FF;
     }
   }
+}
+.archived-title{
+   text-transform: uppercase;
+   color: grey;
+}
+.archivedMembersDiv{
+   margin-top: 3rem;
 }
 .search-field {
   margin-top: 1.8rem;
@@ -68,4 +91,31 @@
          }
       }
    }
+}
+@media(max-width: 500px){
+   .heading {
+      .left {
+        h1 {
+          font-size: 1.4rem;
+        }
+      }
+      .right {
+        h1 {
+          font-size: 1.2rem;
+          span{
+             font-weight: normal;
+          }
+        }
+      }
+    }
+    .card{
+      .details{
+         .name{
+            font-size: 12px;
+         }
+         span{
+            font-size: 10px;
+         }
+      }
+    }
 }
