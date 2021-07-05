@@ -89,6 +89,8 @@ const EditMemberModal = ({member,setMember,setSnackBarUpdated}) => {
     //personal Info states
     const [name, setName] = useState(member.name)
     const [civilStatus, setCivilStatus] = useState(member.civilStatus)
+    const [educAttainment, setEducAttainment] = useState(member.educAttainment)
+    const [age,setAge] = useState(member.age)
     const [birthPlace, setBirthPlace] = useState(member.birthPlace)
     const [birthDate, setBirthDate] = useState(member.birthDate)
     const [address, setAddress] = useState(member.presentAdd)
@@ -116,6 +118,8 @@ const EditMemberModal = ({member,setMember,setSnackBarUpdated}) => {
        projectFirestore.collection('members').doc(member.id).update({
           name: name,
           civilStatus: civilStatus,
+          educAttainment: educAttainment,
+          age: age,
           birthPlace: birthPlace,
           birthDate: birthDate,
           presentAdd: address,
@@ -223,6 +227,25 @@ const EditMemberModal = ({member,setMember,setSnackBarUpdated}) => {
                             </option>
                         ))}
                     </TextField>
+                    <TextField id="standard-basic" 
+                        label="Highest Educational Attainment" 
+                        fullWidth 
+                        className={classes.field} 
+                        autoComplete="off"
+                        value={educAttainment}
+                        required
+                        onChange={(e) => setEducAttainment(e.target.value)}
+                    />
+                    <TextField id="standard-basic" 
+                        label="Age" 
+                        type="number"
+                        fullWidth 
+                        className={classes.field} 
+                        autoComplete="off"
+                        value={age}
+                        required
+                        onChange={(e) => setAge(e.target.value)}
+                    />
                     <TextField id="standard-basic" 
                         label="Birth Place" 
                         fullWidth 

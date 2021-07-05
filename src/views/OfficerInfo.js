@@ -165,6 +165,12 @@ const OfficerInfo = ({setSnackBarArchived}) => {
                         <h3>Civil Status: <span className="details">{officer.civilStatus}</span></h3>
                      </div>
                      <div className="info-group">
+                        <h3>Highest Educational Attainment: <span className="details">{officer.educAttainment}</span></h3>
+                     </div>
+                     <div className="info-group">
+                        <h3>Age: <span className="details">{officer.age}</span></h3>
+                     </div>
+                     <div className="info-group">
                         <h3>Birth Place: <span className="details">{officer.birthPlace}</span></h3>
                      </div>
                      <div className="info-group">

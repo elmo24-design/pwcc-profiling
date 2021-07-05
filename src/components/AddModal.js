@@ -148,6 +148,8 @@ const AddModal = ({setAddModal,setSnackBarAdded}) => {
     //personal Info states
     const [name, setName] = useState('')
     const [civilStatus, setCivilStatus] = useState('')
+    const [educAttainment, setEducAttainment] = useState('')
+    const [age,setAge] = useState('')
     const [birthPlace, setBirthPlace] = useState('')
     const [birthDate, setBirthDate] = useState('')
     const [address, setAddress] = useState('')
@@ -178,6 +180,8 @@ const AddModal = ({setAddModal,setSnackBarAdded}) => {
        projectFirestore.collection('officers').add({
           name: name,
           civilStatus: civilStatus,
+          educAttainment: educAttainment,
+          age: age,
           birthPlace: birthPlace,
           birthDate: birthDate,
           presentAdd: address,
@@ -295,6 +299,25 @@ const AddModal = ({setAddModal,setSnackBarAdded}) => {
                         ))}
                     </TextField>
                     <TextField id="standard-basic" 
+                        label="Highest Educational Attainment" 
+                        fullWidth 
+                        className={classes.field} 
+                        autoComplete="off"
+                        value={educAttainment}
+                        required
+                        onChange={(e) => setEducAttainment(e.target.value)}
+                    />
+                    <TextField id="standard-basic" 
+                        label="Age" 
+                        type="number"
+                        fullWidth 
+                        className={classes.field} 
+                        autoComplete="off"
+                        value={age}
+                        required
+                        onChange={(e) => setAge(e.target.value)}
+                    />
+                    <TextField id="standard-basic" 
                         label="Birth Place" 
                         fullWidth 
                         className={classes.field} 
@@ -303,6 +326,7 @@ const AddModal = ({setAddModal,setSnackBarAdded}) => {
                         required
                         onChange={(e) => setBirthPlace(e.target.value)}
                     />
+                    
                     <TextField id="standard-basic" 
                         label="Date of Birth" 
                         fullWidth 

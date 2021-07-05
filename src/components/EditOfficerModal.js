@@ -147,6 +147,8 @@ const EditOfficerModal = ({officer,setOfficer,setSnackBarUpdated}) => {
     //personal Info states
     const [name, setName] = useState(officer.name)
     const [civilStatus, setCivilStatus] = useState(officer.civilStatus)
+    const [educAttainment, setEducAttainment] = useState(officer.educAttainment)
+    const [age,setAge] = useState(officer.age)
     const [birthPlace, setBirthPlace] = useState(officer.birthPlace)
     const [birthDate, setBirthDate] = useState(officer.birthDate)
     const [address, setAddress] = useState(officer.presentAdd)
@@ -174,6 +176,8 @@ const EditOfficerModal = ({officer,setOfficer,setSnackBarUpdated}) => {
        projectFirestore.collection('officers').doc(officer.id).update({
           name: name,
           civilStatus: civilStatus,
+          educAttainment: educAttainment,
+          age: age,
           birthPlace: birthPlace,
           birthDate: birthDate,
           presentAdd: address,
@@ -285,6 +289,25 @@ const EditOfficerModal = ({officer,setOfficer,setSnackBarUpdated}) => {
                             </option>
                         ))}
                     </TextField>
+                    <TextField id="standard-basic" 
+                        label="Highest Educational Attainment" 
+                        fullWidth 
+                        className={classes.field} 
+                        autoComplete="off"
+                        value={educAttainment}
+                        required
+                        onChange={(e) => setEducAttainment(e.target.value)}
+                    />
+                    <TextField id="standard-basic" 
+                        label="Age" 
+                        type="number"
+                        fullWidth 
+                        className={classes.field} 
+                        autoComplete="off"
+                        value={age}
+                        required
+                        onChange={(e) => setAge(e.target.value)}
+                    />
                     <TextField id="standard-basic" 
                         label="Birth Place" 
                         fullWidth 
