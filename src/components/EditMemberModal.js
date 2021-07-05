@@ -95,9 +95,9 @@ const EditMemberModal = ({member,setMember,setSnackBarUpdated}) => {
     const [birthDate, setBirthDate] = useState(member.birthDate)
     const [address, setAddress] = useState(member.presentAdd)
     const [occupation, setOccupation] = useState(member.occupation)
+    const [contactNum, setContactNum] = useState(member.contactNum)
     const [salary, setSalary] = useState(member.salary)
     const [region, setRegion] = useState(member.region)
-
     const [officeAdd, setOfficeAdd] = useState(member.officeAdd)
     const [father, setFather] = useState(member.father)
     const [mother, setMother] = useState(member.mother)
@@ -124,6 +124,7 @@ const EditMemberModal = ({member,setMember,setSnackBarUpdated}) => {
           birthDate: birthDate,
           presentAdd: address,
           occupation: occupation,
+          contactNum: contactNum,
           salary: salary,
           region: region,
           officeAdd: officeAdd,
@@ -281,6 +282,14 @@ const EditMemberModal = ({member,setMember,setSnackBarUpdated}) => {
                         value={occupation}
                         required
                         onChange={(e) => setOccupation(e.target.value)}
+                    />
+                     <TextField id="standard-basic" 
+                        label="Contact Number" 
+                        fullWidth 
+                        className={classes.field} 
+                        autoComplete="off"
+                        value={contactNum}
+                        onChange={(e) => setContactNum(e.target.value)}
                     />
                     <TextField id="standard-basic"
                         type="number" 

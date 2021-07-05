@@ -154,6 +154,7 @@ const AddModal = ({setAddModal,setSnackBarAdded}) => {
     const [birthDate, setBirthDate] = useState('')
     const [address, setAddress] = useState('')
     const [occupation, setOccupation] = useState('')
+    const [contactNum, setContactNum] = useState('')
     const [salary, setSalary] = useState('')
     const [region, setRegion] = useState('')
     const [position, setPosition] = useState('')
@@ -186,6 +187,7 @@ const AddModal = ({setAddModal,setSnackBarAdded}) => {
           birthDate: birthDate,
           presentAdd: address,
           occupation: occupation,
+          contactNum: contactNum,
           salary: salary,
           region: region,
           position: position,
@@ -353,6 +355,14 @@ const AddModal = ({setAddModal,setSnackBarAdded}) => {
                         value={occupation}
                         required
                         onChange={(e) => setOccupation(e.target.value)}
+                    />
+                    <TextField id="standard-basic" 
+                        label="Contact Number" 
+                        fullWidth 
+                        className={classes.field} 
+                        autoComplete="off"
+                        value={contactNum}
+                        onChange={(e) => setContactNum(e.target.value)}
                     />
                     <TextField id="standard-basic"
                         type="number" 

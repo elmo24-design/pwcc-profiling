@@ -12,13 +12,13 @@ function Alert(props) {
 }
 
 const Dashboard = ({snackBarLogin,setSnackBarLogin}) => {
-   const {officers} = useOfficers('officers')
    const {members} = useMembers('members')
+   const {officers} = useOfficers('officers')
 
-   const [totalSubscribedNum,setTotalSubscribedNum] = useState(0)
+   const [totalSubscribedNum,setTotalSubscribedNum] = useState(null)
    const [totalSubscribedAmt,setTotalSubscribedAmt] = useState(0)
-   const [totalNum,setTotalNum] = useState(0)
-   const [totalAmt,setTotalAmt] = useState(0)
+   const [totalPaidUpNum,setTotalPaidUpNum] = useState(0)
+   const [totalPaidUpAmt,setTotalPaidUpAmt] = useState(0)
 
    useEffect(() => {
       officers.map(officer => {
@@ -27,13 +27,13 @@ const Dashboard = ({snackBarLogin,setSnackBarLogin}) => {
             let total1 = 0
             total1 += parseInt(officer.paidUpShares) + parseInt(member.paidUpShares)
             total1 = (Math.round(total1 * 100) / 100).toFixed(2)
-            setTotalNum(total1)
+            setTotalPaidUpNum(total1)
 
             //Total Amt. of paid-up shares
             let total2 = 0
             total2 += (parseInt(officer.paidUpShares) * 100) + (parseInt(member.paidUpShares) * 100)
             total2 = (Math.round(total2 * 100) / 100).toFixed(2)
-            setTotalAmt(total2)
+            setTotalPaidUpAmt(total2)
 
             //Total no. subscribed shares
             let total3 = 0
@@ -118,7 +118,7 @@ const Dashboard = ({snackBarLogin,setSnackBarLogin}) => {
                   <p>Total no. of paid-up shares</p>
                   <div className="d-card-bottom">
                      <i class="fas fa-clipboard-list" id="icon"></i>
-                     <h4>{totalNum}</h4>
+                     <h4>{totalPaidUpNum}</h4>
                   </div>
                </div>
             </Card>
@@ -127,7 +127,7 @@ const Dashboard = ({snackBarLogin,setSnackBarLogin}) => {
                   <p>Total amt. of paid-up shares</p> 
                   <div className="d-card-bottom">
                      <i class="fas fa-money-bill-wave-alt" id="icon"></i>
-                     <h4>{totalAmt}</h4>
+                     <h4>{totalPaidUpAmt}</h4>
                   </div>
                </div>
             </Card>

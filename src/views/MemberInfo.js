@@ -184,6 +184,9 @@ const MemberInfo = ({setSnackBarArchived}) => {
                         <h3>Occupation: <span className="details">{member.occupation}</span></h3>
                      </div>
                      <div className="info-group">
+                        <h3>Contact Number: <span className="details">{member.contactNum}</span></h3>
+                     </div>
+                     <div className="info-group">
                         <h3>Salary (Month) Php: <span className="details">{member.salary}</span></h3>
                      </div>
                      <div className="info-group">

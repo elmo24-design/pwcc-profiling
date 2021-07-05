@@ -153,6 +153,7 @@ const EditOfficerModal = ({officer,setOfficer,setSnackBarUpdated}) => {
     const [birthDate, setBirthDate] = useState(officer.birthDate)
     const [address, setAddress] = useState(officer.presentAdd)
     const [occupation, setOccupation] = useState(officer.occupation)
+    const [contactNum, setContactNum] = useState(officer.contactNum)
     const [salary, setSalary] = useState(officer.salary)
     const [region, setRegion] = useState(officer.region)
     const [position, setPosition] = useState(officer.position)
@@ -182,6 +183,7 @@ const EditOfficerModal = ({officer,setOfficer,setSnackBarUpdated}) => {
           birthDate: birthDate,
           presentAdd: address,
           occupation: occupation,
+          contactNum: contactNum,
           salary: salary,
           region: region,
           position: position,
@@ -343,6 +345,14 @@ const EditOfficerModal = ({officer,setOfficer,setSnackBarUpdated}) => {
                         value={occupation}
                         required
                         onChange={(e) => setOccupation(e.target.value)}
+                    />
+                     <TextField id="standard-basic" 
+                        label="Contact Number" 
+                        fullWidth 
+                        className={classes.field} 
+                        autoComplete="off"
+                        value={contactNum}
+                        onChange={(e) => setContactNum(e.target.value)}
                     />
                     <TextField id="standard-basic"
                         type="number" 
