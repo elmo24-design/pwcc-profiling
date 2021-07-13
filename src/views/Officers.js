@@ -34,7 +34,7 @@ const useStyles = makeStyles((theme) => ({
    }
 }));
 
-const Officers = ({snackBarArchived,setSnackBarArchived}) => {
+const Officers = ({snackBarArchived,setSnackBarArchived,snackBarMovedToOfficer,setSnackBarMovedToOfficer}) => {
    const classes = useStyles();
    const [addModal,setAddModal] = useState(false);
    const [officer,setOfficer] = useState(null)
@@ -71,6 +71,15 @@ const Officers = ({snackBarArchived,setSnackBarArchived}) => {
   
       setSnackBarRemoved(false);
    };
+   //close snackbar moved
+   const handleCloseMoved = (event, reason) => {
+      if (reason === 'clickaway') {
+         setSnackBarMovedToOfficer(false);
+      }
+
+      setSnackBarMovedToOfficer(false);
+   };
+   
    
    //close snackbar archived coming from officer info
    const handleCloseArchived = (event, reason) => {
@@ -90,11 +99,24 @@ const Officers = ({snackBarArchived,setSnackBarArchived}) => {
                horizontal: 'right',
             }}
             open={snackBarArchived}
-            autoHideDuration={4000}
+            autoHideDuration={3000}
             onClose={handleCloseArchived}
          >
             <Alert onClose={handleCloseArchived} severity="success">
                Data has been Archived
+            </Alert>
+         </Snackbar>
+         <Snackbar
+            anchorOrigin={{
+               vertical: 'top',
+               horizontal: 'right',
+            }}
+            open={snackBarMovedToOfficer}
+            autoHideDuration={3000}
+            onClose={handleCloseMoved}
+         >
+            <Alert onClose={handleCloseMoved} severity="success">
+               Data has been moved to members' list
             </Alert>
          </Snackbar>
          {/* end */}

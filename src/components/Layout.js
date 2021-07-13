@@ -21,6 +21,7 @@ import SupervisedUserCircleIcon from '@material-ui/icons/SupervisedUserCircle';
 import PeopleIcon from '@material-ui/icons/People';
 import DashboardIcon from '@material-ui/icons/Dashboard';
 import ArchiveIcon from '@material-ui/icons/Archive';
+import FormatListNumberedIcon from '@material-ui/icons/FormatListNumbered';
 import logo from '../images/pwcc 3.png';
 
 const drawerWidth = 250
@@ -124,6 +125,11 @@ const Layout = ({children}) => {
          text: 'Dashboard',
          icon: <DashboardIcon/>,
          path: '/dashboard'
+      },
+      {
+         text: 'Products',
+         icon: <FormatListNumberedIcon/>,
+         path: '/products'
       },
       {
          text: 'Officers',

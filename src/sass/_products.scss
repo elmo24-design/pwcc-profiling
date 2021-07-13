@@ -1,0 +1,36 @@
+.products-heading{
+   text-transform: uppercase;
+   color: rgb(128, 128, 128);
+   margin-top: 1rem;
+   margin-bottom: 1rem;
+}
+.products-card-grid{
+   display: grid;
+   grid-template-columns: repeat(3,1fr);
+   grid-gap: 10px;
+}
+.rice-card-outer, .rice-dates-card-outer{
+   cursor: pointer;
+   transition: 0.3s ease-in-out;
+   &:hover{
+      transform: scale(1.05);
+      opacity: 0.9;
+   }
+}
+.rice-card{
+   background-color: #5D43FF;
+   display: flex;
+   flex-direction: column;
+   justify-content: center;
+   align-items: center;
+   padding: 1.5rem 0;
+   h3{
+      color: white;
+      text-transform: uppercase;
+      padding-top: 1rem;
+      font-size: 1.5rem;
+   }
+}
+.rice-pic{
+   width: 5rem;
+}

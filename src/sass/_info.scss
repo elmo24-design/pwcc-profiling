@@ -1,6 +1,15 @@
 .panel{
    margin-left: -1.8rem;
 }
+.actions{
+   display: flex;
+   align-items: center;
+   justify-content: space-between;
+   flex-wrap: wrap;
+}
+.btn-actions-right{
+   margin-right: -1.7rem;
+}
 .info{
    margin-top: 1.5rem;
    margin-left: 6px;

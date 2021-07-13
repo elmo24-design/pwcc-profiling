@@ -4,6 +4,7 @@ import useOfficerInfo from "../hooks/useOfficerInfo";
 import { makeStyles } from '@material-ui/core/styles';
 import EditOfficerModal from '../components/EditOfficerModal';
 import EditCapitalModal from "../components/EditCapitalModal";
+import MoveOfficerModal from "../components/MoveOfficerModal";
 //Tab components
 import AppBar from '@material-ui/core/AppBar';
 import Tab from '@material-ui/core/Tab';
@@ -14,11 +15,12 @@ import TabPanel from '@material-ui/lab/TabPanel';
 import Button from '@material-ui/core/Button';
 import EditIcon from '@material-ui/icons/Edit';
 import DeleteIcon from '@material-ui/icons/Delete';
+import MoveToInboxIcon from '@material-ui/icons/MoveToInbox';
 import KeyboardBackspaceIcon from '@material-ui/icons/KeyboardBackspace';
 //Snackbar Component
 import MuiAlert from '@material-ui/lab/Alert';
 import Snackbar from '@material-ui/core/Snackbar';
-import { projectFirestore } from "../firebase/config";
+import { projectFirestore, timestamp } from "../firebase/config";
 
 function Alert(props) {
    return <MuiAlert elevation={6} variant="filled" {...props} />;
@@ -26,7 +28,10 @@ function Alert(props) {
 
 const useStyles = makeStyles((theme) => ({
    button: {
-     margin: theme.spacing(0.7),
+      margin: theme.spacing(0.7),
+   },
+   btnMove: {
+      margin: theme.spacing(0.7),
    },
    back:{
       fontSize: '2rem',
@@ -36,7 +41,7 @@ const useStyles = makeStyles((theme) => ({
  }));
 
 
-const OfficerInfo = ({setSnackBarArchived}) => {
+const OfficerInfo = ({setSnackBarArchived,setSnackBarMovedToOfficer}) => {
    const classes = useStyles();
    const history = useHistory()
    
@@ -44,6 +49,7 @@ const OfficerInfo = ({setSnackBarArchived}) => {
    const {officer} = useOfficerInfo(id)
 
    const [officerBoolean,setOfficer] = useState(null)
+   const [moveOfficer,setMoveOfficer] = useState(null)
    const [editCapitalModal,setEditCapitalModal] = useState(null)
 
    let [subscribedSharesAmount, setSubscribedSharesAmount] = useState(0)
@@ -105,6 +111,13 @@ const OfficerInfo = ({setSnackBarArchived}) => {
             </Alert>
          </Snackbar>
          {
+           moveOfficer &&
+           <MoveOfficerModal 
+               officer={officer} 
+               setOfficer={setMoveOfficer} 
+               setSnackBarMovedToOfficer={setSnackBarMovedToOfficer}/>
+         }
+         {
            officerBoolean &&
            <EditOfficerModal 
                officer={officer} 
@@ -138,24 +151,37 @@ const OfficerInfo = ({setSnackBarArchived}) => {
             <TabPanel value="1">
                <div className="panel">
                   <div className="actions">
-                     <Button
-                        variant="contained"
-                        className={classes.button}
-                        color="primary"
-                        startIcon={<EditIcon />}
-                        onClick={() => setOfficer(officer)}
-                        >
-                        Edit
-                     </Button>
-                     <Button
-                        variant="contained"
-                        color="secondary"
-                        className={classes.button}
-                        startIcon={<DeleteIcon />}
-                        onClick={archiveData}
-                        >
-                        Archive
-                     </Button>
+                     <div className="btn-actions-left">
+                        <Button
+                           variant="contained"
+                           className={classes.button}
+                           color="primary"
+                           startIcon={<EditIcon />}
+                           onClick={() => setOfficer(officer)}
+                           >
+                           Edit
+                        </Button>
+                        <Button
+                           variant="contained"
+                           color="secondary"
+                           className={classes.button}
+                           startIcon={<DeleteIcon />}
+                           onClick={archiveData}
+                           >
+                           Archive
+                        </Button>
+                     </div>
+                     <div className="btn-actions-right">
+                        <Button
+                           variant="contained"
+                           color="default"
+                           className={classes.btnMove}
+                           startIcon={<MoveToInboxIcon />}
+                           onClick={() => setMoveOfficer(officer)}
+                           >
+                           Move to Members
+                        </Button>
+                     </div>
                   </div>
                   <div className="info">
                      <div className="info-group">

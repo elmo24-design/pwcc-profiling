@@ -1,0 +1,38 @@
+.products-rice{
+   h1{
+      text-transform: uppercase;
+      color: rgb(128, 128, 128);
+      margin-bottom: 1rem;
+   }
+}
+.rice-dates-grid{
+   margin-top: 1.5rem;
+   display: grid;
+   grid-gap: 10px;
+   grid-template-columns: repeat(3,1fr);
+}
+.rice-dates-card{
+   display: flex;
+   flex-direction: column;
+   justify-content: center;
+   align-items: center;
+   padding: 1rem 0;
+   h3{
+      color: #5D43FF;
+      padding: 0.5rem 0;
+   }
+   p{
+      text-transform: uppercase;
+      font-weight: bold;
+      span{
+         font-weight: normal;
+         padding-left: 5px;
+      }
+   }
+}
+.add-dates-icon{
+   position: absolute;
+   right: 0;
+   bottom: 0;
+   margin: 0 1rem 1rem 0;
+}

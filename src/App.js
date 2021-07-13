@@ -3,6 +3,9 @@ import { Route, Switch } from "react-router-dom";
 import { AuthProvider } from "./contexts/AuthContext";
 //views
 import Dashboard from "./views/Dashboard";
+import Products from "./views/Products";
+import ProductsRice from "./views/ProductsRice";
+import SalesDetails from "./views/SalesDetails";
 import Officers from "./views/Officers";
 import Members from "./views/Members";
 import Archive from "./views/Archive";
@@ -39,6 +42,8 @@ function App() {
   
   const [snackBarLogin, setSnackBarLogin] = useState(false) //snackbar for login
   const [snackBarArchived,setSnackBarArchived] = useState(false) //archived state in officer info
+  const [snackBarMovedToOfficer,setSnackBarMovedToOfficer] = useState(false) //moved officer to member state in officer info
+  const [snackBarMovedToMember,setSnackBarMovedToMember] = useState(false) //moved officer to member state in officer info
 
   return (
     <div className="App">
@@ -52,20 +57,45 @@ function App() {
                      <Route path="/dashboard">
                         <Dashboard snackBarLogin={snackBarLogin} setSnackBarLogin={setSnackBarLogin}/>
                      </Route>
+                     <Route exact path="/products">
+                        <Products />
+                     </Route>
+                     <Route exact path="/products/rice">
+                        <ProductsRice />
+                     </Route>
+                     <Route path="/products/rice/:id">
+                        <SalesDetails />
+                     </Route>
                      <Route path="/officers">
-                        <Officers snackBarArchived={snackBarArchived} setSnackBarArchived={setSnackBarArchived}/>
+                        <Officers 
+                           snackBarArchived={snackBarArchived} 
+                           setSnackBarArchived={setSnackBarArchived}
+                           snackBarMovedToOfficer={snackBarMovedToOfficer}
+                           setSnackBarMovedToOfficer={setSnackBarMovedToOfficer}
+                           />
                      </Route>
                      <Route path="/members">
-                        <Members snackBarArchived={snackBarArchived} setSnackBarArchived={setSnackBarArchived} />
+                        <Members 
+                           snackBarArchived={snackBarArchived} 
+                           setSnackBarArchived={setSnackBarArchived} 
+                           snackBarMovedToMember={snackBarMovedToMember}
+                           setSnackBarMovedToMember={setSnackBarMovedToMember}
+                        />
                      </Route>
                      <Route path="/archive">
                         <Archive />
                      </Route>
                      <Route path="/officer/:id">
-                        <OfficerInfo setSnackBarArchived={setSnackBarArchived}/>
+                        <OfficerInfo 
+                           setSnackBarArchived={setSnackBarArchived}
+                           setSnackBarMovedToOfficer={setSnackBarMovedToOfficer}
+                        />
                      </Route>
                      <Route path="/member/:id">
-                        <MemberInfo setSnackBarArchived={setSnackBarArchived}/>
+                        <MemberInfo 
+                           setSnackBarArchived={setSnackBarArchived}
+                           setSnackBarMovedToMember={setSnackBarMovedToMember}
+                        />
                      </Route>
                   </Layout>
                </Switch>

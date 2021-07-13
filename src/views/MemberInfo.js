@@ -4,6 +4,7 @@ import useMemberInfo from "../hooks/useMemberInfo";
 import { makeStyles } from '@material-ui/core/styles';
 import EditMemberModal from '../components/EditMemberModal';
 import EditCapitalModal from "../components/EditCapitalModal";
+import MoveMemberModal from "../components/MoveMemberModal";
 //Tab components
 import AppBar from '@material-ui/core/AppBar';
 import Tab from '@material-ui/core/Tab';
@@ -14,6 +15,7 @@ import TabPanel from '@material-ui/lab/TabPanel';
 import Button from '@material-ui/core/Button';
 import EditIcon from '@material-ui/icons/Edit';
 import DeleteIcon from '@material-ui/icons/Delete';
+import MoveToInboxIcon from '@material-ui/icons/MoveToInbox';
 import KeyboardBackspaceIcon from '@material-ui/icons/KeyboardBackspace';
 //Snackbar Component
 import MuiAlert from '@material-ui/lab/Alert';
@@ -36,7 +38,7 @@ const useStyles = makeStyles((theme) => ({
  }));
 
 
-const MemberInfo = ({setSnackBarArchived}) => {
+const MemberInfo = ({setSnackBarArchived,setSnackBarMovedToMember}) => {
    const classes = useStyles();
    const history = useHistory()
    
@@ -44,6 +46,7 @@ const MemberInfo = ({setSnackBarArchived}) => {
    const {member} = useMemberInfo(id)
 
    const [memberBoolean,setMember] = useState(null)
+   const [moveMember,setMoveMember] = useState(null)
    const [editCapitalModal,setEditCapitalModal] = useState(null)
 
    let [subscribedSharesAmount, setSubscribedSharesAmount] = useState(0)
@@ -105,6 +108,13 @@ const MemberInfo = ({setSnackBarArchived}) => {
             </Alert>
          </Snackbar>
          {
+           moveMember &&
+           <MoveMemberModal 
+               member={member} 
+               setMember={setMoveMember} 
+               setSnackBarMovedToMember={setSnackBarMovedToMember}/>
+         }
+         {
            memberBoolean &&
            <EditMemberModal 
                member={member} 
@@ -138,24 +148,37 @@ const MemberInfo = ({setSnackBarArchived}) => {
             <TabPanel value="1">
                <div className="panel">
                   <div className="actions">
-                     <Button
-                        variant="contained"
-                        className={classes.button}
-                        color="primary"
-                        startIcon={<EditIcon />}
-                        onClick={() => setMember(member)}
-                        >
-                        Edit
-                     </Button>
-                     <Button
-                        variant="contained"
-                        color="secondary"
-                        className={classes.button}
-                        startIcon={<DeleteIcon />}
-                        onClick={archiveData}
-                        >
-                        Archive
-                     </Button>
+                     <div className="btn-actions-left">
+                        <Button
+                           variant="contained"
+                           className={classes.button}
+                           color="primary"
+                           startIcon={<EditIcon />}
+                           onClick={() => setMember(member)}
+                           >
+                           Edit
+                        </Button>
+                        <Button
+                           variant="contained"
+                           color="secondary"
+                           className={classes.button}
+                           startIcon={<DeleteIcon />}
+                           onClick={archiveData}
+                           >
+                           Archive
+                        </Button>
+                     </div>
+                     <div className="btn-actions-right">
+                        <Button
+                           variant="contained"
+                           color="default"
+                           className={classes.btnMove}
+                           startIcon={<MoveToInboxIcon />}
+                           onClick={() => setMoveMember(member)}
+                           >
+                           Move to Officers
+                        </Button>
+                     </div>
                   </div>
                   <div className="info">
                      <div className="info-group">
