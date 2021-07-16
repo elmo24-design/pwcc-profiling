@@ -35,6 +35,9 @@ const useStyles = makeStyles((theme) => ({
       color: 'grey',
       cursor: 'pointer'
    },
+   length: {
+      marginTop: '15px'
+   }
 }));
 
 const SalesDetails = ({setSnackBarArchived}) => {
@@ -339,6 +342,9 @@ const SalesDetails = ({setSnackBarArchived}) => {
                   handleDeleteItem={handleDeleteItem}
                   riceItems={riceItems}
                />
+               <div className={classes.length}>
+                  Items: <span>{riceItems.length}</span>
+               </div>
             </div>
             {
                report &&
