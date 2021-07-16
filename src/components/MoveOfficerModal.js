@@ -54,64 +54,6 @@ const useStyles = makeStyles((theme) => ({
     }
  }));
 
- const positions = [
-    {
-      value: '',
-      label: "",
-    },
-    {
-      value: 'Chairperson',
-      label: 'Chairperson',
-    },
-    {
-      value: 'Vice Chairperson',
-      label: 'Vice Chairperson',
-    },
-    {
-      value: 'Secretary',
-      label: 'Secretary',
-    },
-    {
-      value: 'Treasurer',
-      label: 'Treasurer',
-    },
-    {
-      value: 'General Manager',
-      label: 'General Manager',
-    },
-    {
-      value: 'Audit Committee',
-      label: 'Audit Committee',
-    },
-    {
-      value: 'Education Committee',
-      label: 'Education Committee',
-    },
-    {
-      value: 'Election Committee',
-      label: 'Election Committee',
-    },
-    {
-      value: 'Ethics Committee',
-      label: 'Ethics Committee',
-    },
-    {
-      value: 'GAD Committee',
-      label: 'GAD Committee',
-    },
-    {
-      value: 'Mediation Committee',
-      label: 'Mediation Committee',
-    }, 
-    {
-      value: 'Membership Committee',
-      label: 'Membership Committee',
-    },
-    {
-        value: 'Member',
-        label: 'Member',
-    },
-  ];
  //Civil Status Values
    const civilStatuses = [
       {
@@ -156,7 +98,7 @@ const MoveOfficerModal = ({officer,setOfficer,setSnackBarMovedToOfficer}) => {
     const [contactNum, setContactNum] = useState(officer.contactNum)
     const [salary, setSalary] = useState(officer.salary)
     const [region, setRegion] = useState(officer.region)
-    const [position, setPosition] = useState(officer.position)
+    
     const [officeAdd, setOfficeAdd] = useState(officer.officeAdd)
     const [father, setFather] = useState(officer.father)
     const [mother, setMother] = useState(officer.mother)
@@ -214,9 +156,6 @@ const MoveOfficerModal = ({officer,setOfficer,setSnackBarMovedToOfficer}) => {
        .catch(err => console.log(err))
     }
 
-    const handleChange = (event) => {
-      setPosition(event.target.value);
-    };
     const handleChangeStatus = (event) => {
       setCivilStatus(event.target.value);
     };
@@ -376,23 +315,6 @@ const MoveOfficerModal = ({officer,setOfficer,setSnackBarMovedToOfficer}) => {
                         value={region}
                         onChange={(e) => setRegion(e.target.value)}
                     />
-                    <TextField
-                        select
-                        fullWidth
-                        className={classes.field}
-                        label="Select Position"
-                        value={position}
-                        onChange={handleChange}
-                        SelectProps={{
-                            native: true,
-                        }}
-                        >
-                        {positions.map((option) => (
-                            <option key={option.value} value={option.value}>
-                            {option.label}
-                            </option>
-                        ))}
-                    </TextField>
                     <TextField id="standard-basic" 
                         label="Office Address" 
                         fullWidth 

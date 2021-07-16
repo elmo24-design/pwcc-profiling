@@ -41,7 +41,7 @@
    text-transform: uppercase;
    color: grey;
 }
-.archivedMembersDiv{
+.archivedMembersDiv, .archivedSalesDiv{
    margin-top: 3rem;
 }
 .search-field {
@@ -68,6 +68,10 @@
       margin-left: 1rem;
       .details{
          margin-left: 10px;
+         .date-archived{
+            margin-left: -2rem;
+            font-weight: bold;
+         }
          .name{
             text-transform: uppercase;
             font-weight: bold;

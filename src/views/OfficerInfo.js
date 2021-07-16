@@ -20,7 +20,7 @@ import KeyboardBackspaceIcon from '@material-ui/icons/KeyboardBackspace';
 //Snackbar Component
 import MuiAlert from '@material-ui/lab/Alert';
 import Snackbar from '@material-ui/core/Snackbar';
-import { projectFirestore, timestamp } from "../firebase/config";
+import { projectFirestore } from "../firebase/config";
 
 function Alert(props) {
    return <MuiAlert elevation={6} variant="filled" {...props} />;

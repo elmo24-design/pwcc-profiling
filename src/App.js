@@ -61,10 +61,13 @@ function App() {
                         <Products />
                      </Route>
                      <Route exact path="/products/rice">
-                        <ProductsRice />
+                        <ProductsRice 
+                          snackBarArchived={snackBarArchived} 
+                          setSnackBarArchived={setSnackBarArchived}
+                        />
                      </Route>
                      <Route path="/products/rice/:id">
-                        <SalesDetails />
+                        <SalesDetails  setSnackBarArchived={setSnackBarArchived} />
                      </Route>
                      <Route path="/officers">
                         <Officers 

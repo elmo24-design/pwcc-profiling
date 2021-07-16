@@ -3,7 +3,7 @@ import { motion } from 'framer-motion';
 import { makeStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
-import { projectFirestore, timestamp } from '../firebase/config';
+import { projectFirestore } from '../firebase/config';
 
 const backdrop = {
     hidden: {
@@ -43,14 +43,14 @@ const useStyles = makeStyles((theme) => ({
  }));
 
  
-const AddDatesModal = ({setAddDatesModal}) => {
+const EditDatesModal = ({date,setEditDatesModal,setSnackBarUpdated}) => {
     const classes = useStyles()
     const [isPending, setIsPending] = useState(false)
-    const [date,setDate] = useState(null)
+    const [dateValue,setDateValue] = useState(date.date)
     
     const closeModal = (e) => {
         if(e.target.classList.contains('backdrop')){
-            setAddDatesModal(false)
+            setEditDatesModal(null)
         }
     }
 
@@ -58,15 +58,13 @@ const AddDatesModal = ({setAddDatesModal}) => {
     const handleSubmit = (e) => {
        e.preventDefault()
        setIsPending(true)
-       projectFirestore.collection('dates').add({
-          date: date,
-          status: true,
-          totalSales: 0,
-          createdAt: timestamp()
+       projectFirestore.collection('dates').doc(date.id).update({
+          date: dateValue
        })
        .then(() => {
           setIsPending(false)
-          setAddDatesModal(false)
+          setEditDatesModal(null)
+          setSnackBarUpdated(true)
        })
        .catch(err => console.log(err))
     }
@@ -80,15 +78,15 @@ const AddDatesModal = ({setAddDatesModal}) => {
             exit="hidden"
         >
             <motion.div className="modal modal-rice" variants={modal}>
-                <h1>Select a date</h1>
+                <h1>Edit date</h1>
                 <form className={classes.form} onSubmit={handleSubmit}>
                   <TextField
                      id="date"
                      label="Select Date"
                      type="date"
                      fullWidth
-                     value={date}
-                     onChange={(e) => setDate(e.target.value)}
+                     value={dateValue}
+                     onChange={(e) => setDateValue(e.target.value)}
                      className={classes.textField}
                      InputLabelProps={{
                         shrink: true,
@@ -103,12 +101,12 @@ const AddDatesModal = ({setAddDatesModal}) => {
                           :
                           <div>
                              {
-                                date !== null ?
+                                dateValue !== null ?
                                 <Button variant="contained" 
                                     color="primary" 
                                     type="submit"
                                     >
-                                    Add
+                                    Save
                                  </Button>
                                  :
                                  <Button variant="contained" 
@@ -116,12 +114,12 @@ const AddDatesModal = ({setAddDatesModal}) => {
                                     type="submit"
                                     disabled
                                     >
-                                    Add
+                                    Save
                                  </Button>
                              }
                               <Button variant="contained" 
                                  className={classes.btnCancel}
-                                 onClick={() => setAddDatesModal(false)}
+                                 onClick={() => setEditDatesModal(null)}
                               >Cancel</Button>
                           </div>
                        }
@@ -132,4 +130,4 @@ const AddDatesModal = ({setAddDatesModal}) => {
     );
 }
  
-export default AddDatesModal;
+export default EditDatesModal;

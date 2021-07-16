@@ -38,7 +38,7 @@ const useStyles = makeStyles((theme) => {
            width: drawerWidth,
            flexShrink: 0,
          },
-         zIndex: '1',
+         zIndex: '5',
       },
       drawerPaper: {
          width: drawerWidth
@@ -67,7 +67,7 @@ const useStyles = makeStyles((theme) => {
             width: `calc(100% - ${drawerWidth}px)`,
             marginLeft: drawerWidth,
           },
-          zIndex: '1',
+          zIndex: '5',
           backgroundColor: '#5D43FF'
       },
       text: {

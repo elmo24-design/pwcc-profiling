@@ -4,6 +4,7 @@ import RestoreIcon from '@material-ui/icons/Restore';
 import { makeStyles } from '@material-ui/core/styles';
 //colors
 import { projectFirestore } from '../firebase/config';
+import useRiceItems from '../hooks/useRiceItems';
 
 const useStyles = makeStyles((theme) => ({
    icon:{
@@ -19,13 +20,27 @@ const useStyles = makeStyles((theme) => ({
    }
 }));
 
-const CardArchived = ({item,collection,setSnackBarDeleted,setSnackBarRestored}) => {
+const CardArchived = ({item,collection,setSnackBarDeleted,setSnackBarRestored,spec}) => {
    const classes = useStyles()
+   const {riceItems} = useRiceItems('riceItems',item.id)
 
    const deleteItem = () => {
       window.confirm('Are you sure you want to delete this data permanently?') &&
       projectFirestore.collection(collection).doc(item.id).delete()
       .then(() => setSnackBarDeleted(true))
+   }
+
+   const deleteRiceItem = () => {
+      window.confirm('Are you sure you want to delete this data permanently? All items from this list will also be deleted') &&
+      projectFirestore.collection(collection).doc(item.id).delete()
+      .then(() => {
+         riceItems.forEach(item => {
+            projectFirestore.collection('riceItems').doc(item.id).delete()
+         })
+      })
+      .then(() => {
+         setSnackBarDeleted(true)
+      })
    }
 
    const restoreItem = () => {
@@ -37,20 +52,37 @@ const CardArchived = ({item,collection,setSnackBarDeleted,setSnackBarRestored}) 
 
    return ( 
       <Card className="card">
-         <Avatar className={classes.avatar}>
-            {item.name[0].toUpperCase()}
-         </Avatar>
+         {
+            item.name ? 
+               <Avatar className={classes.avatar}>
+                  {item.name[0].toUpperCase()}
+               </Avatar>
+            :
+            ''
+         }
          <div className="right">
             <div className="details">
-               <p className="name">{item.name}</p>
+               {
+                  item.name ? 
+                     <p className="name">{item.name}</p>
+                  :
+                     <p className="date-archived">{item.date}</p>
+               }
             </div>
             <div className="actions">
                <div>
                   <RestoreIcon onClick={restoreItem}/>
                </div>
-               <div>
-                  <DeleteIcon onClick={deleteItem}/>
-               </div>
+               {
+                  spec === true ?
+                  <div>
+                     <DeleteIcon onClick={deleteRiceItem}/>
+                  </div>
+                  :
+                  <div>
+                     <DeleteIcon onClick={deleteItem}/>
+                  </div>
+               }
             </div>
          </div>
       </Card>

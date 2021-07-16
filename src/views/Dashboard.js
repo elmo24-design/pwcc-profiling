@@ -38,36 +38,6 @@ const Dashboard = ({snackBarLogin,setSnackBarLogin}) => {
       setTotalPaidUpAmt(total4)
    }, [officers,members])
 
-   // useEffect(() => {
-   //    officers.map(officer => {
-   //       members.map(member => {
-   //          //Total no. of paid up shares
-   //          let total1 = 0
-   //          total1 += parseInt(officer.paidUpShares) + parseInt(member.paidUpShares)
-   //          total1 = (Math.round(total1 * 100) / 100).toFixed(2)
-   //          setTotalPaidUpNum(total1)
-
-   //          //Total Amt. of paid-up shares
-   //          let total2 = 0
-   //          total2 += (parseInt(officer.paidUpShares) * 100) + (parseInt(member.paidUpShares) * 100)
-   //          total2 = (Math.round(total2 * 100) / 100).toFixed(2)
-   //          setTotalPaidUpAmt(total2)
-
-   //          //Total no. subscribed shares
-   //          let total3 = 0
-   //          total3 += parseInt(officer.subscribedShares) + parseInt(member.subscribedShares)
-   //          total3 = (Math.round(total3 * 100) / 100).toFixed(2)
-   //          setTotalSubscribedNum(total3)
-
-   //          //Total amt. of subscribed shares
-   //          let total4 = 0
-   //          total4 += (parseInt(officer.subscribedShares) * 100) + (parseInt(member.subscribedShares) * 100)
-   //          total4 = (Math.round(total4 * 100) / 100).toFixed(2)
-   //          setTotalSubscribedAmt(total4)
-   //       })
-   //    })
-   // }, [officers,members])
-
    const handleClose = (event, reason) => {
       if (reason === 'clickaway') {
          setSnackBarLogin(false);

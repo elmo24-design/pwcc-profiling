@@ -108,6 +108,10 @@ const useStyles = makeStyles((theme) => ({
       label: 'Membership Committee',
     },
     {
+      value: 'Encoder',
+      label: 'Encoder',
+    },
+    {
         value: 'Member',
         label: 'Member',
     },

@@ -1,8 +1,8 @@
 import { useState, useEffect } from "react";
 import { projectFirestore } from "../firebase/config";
 
-const useDates = (collection) => {
-   const [dates,setDates] = useState([])
+const useArchivedDates = (collection) => {
+   const [archivedDates,setArchivedDates] = useState([])
 
    useEffect(() => {
       const unsub = projectFirestore.collection(collection)
@@ -10,17 +10,17 @@ const useDates = (collection) => {
       .onSnapshot(snap => {
          let results = []
          snap.docs.forEach(doc=> {
-            if(doc.data().status === true){
+            if(doc.data().status === false){
                doc.data().createdAt && results.push({...doc.data(), id: doc.id})
             }
          })
-         setDates(results)
+         setArchivedDates(results)
       })
 
       return (() => unsub())
    }, [collection])
 
-   return {dates}
+   return {archivedDates}
 }
  
-export default useDates;
+export default useArchivedDates;

@@ -11,6 +11,13 @@ import useDates from '../hooks/useDates';
 import format from "date-fns/format";
 import parseISO from "date-fns/parseISO";
 import { motion } from 'framer-motion';
+//Snackbar Component
+import MuiAlert from '@material-ui/lab/Alert';
+import Snackbar from '@material-ui/core/Snackbar';
+
+function Alert(props) {
+   return <MuiAlert elevation={6} variant="filled" {...props} />;
+}
 
 const useStyles = makeStyles((theme) => ({
    button: {
@@ -27,18 +34,40 @@ const useStyles = makeStyles((theme) => ({
    },
 }));
 
-const ProductsRice = () => {
+const ProductsRice = ({snackBarArchived,setSnackBarArchived}) => {
    const classes= useStyles()
    const history = useHistory()
    const {dates} = useDates('dates')
 
    const [addDatesModal,setAddDatesModal] = useState(false)
 
+   //close snackbar archived coming from officer info
+   const handleCloseArchived = (event, reason) => {
+      if (reason === 'clickaway') {
+         setSnackBarArchived(false);
+      }
+  
+      setSnackBarArchived(false);
+   };
+
    return (
       <>
          {
             addDatesModal && <AddDatesModal setAddDatesModal={setAddDatesModal}/>
          }
+         <Snackbar
+            anchorOrigin={{
+               vertical: 'top',
+               horizontal: 'right',
+            }}
+            open={snackBarArchived}
+            autoHideDuration={3000}
+            onClose={handleCloseArchived}
+         >
+            <Alert onClose={handleCloseArchived} severity="success">
+               List has been archived
+            </Alert>
+         </Snackbar>
          <div className="products-rice">
             <KeyboardBackspaceIcon 
                className={classes.back}
@@ -49,20 +78,29 @@ const ProductsRice = () => {
             <Divider />
             <div className="rice-dates-grid">
                {
-                  dates && dates.map(date => (
-                     <motion.div key={date.id} layout>
-                        <Link to={`rice/${date.id}`}>
-                           <div className="rice-dates-card-outer">
-                              <Card>
-                                 <div className="rice-dates-card">
-                                    <h3>{ format(parseISO(date.date), "do MMMM yyyy") }</h3>
-                                    <p>Total Sales:<span>PHP 2,000.00</span></p> 
+                  dates.length !== 0 ?
+                  <>
+                     {
+                        dates && dates.map(date => (
+                           <motion.div key={date.id} layout>
+                              <Link to={`rice/${date.id}`}>
+                                 <div className="rice-dates-card-outer">
+                                    <Card>
+                                       <div className="rice-dates-card">
+                                          <h3>{ format(parseISO(date.date), "do MMMM yyyy") }</h3>
+                                          <p>Total Sales:<span>PHP {date.totalSales.toFixed(2)}</span></p> 
+                                       </div>
+                                    </Card>
                                  </div>
-                              </Card>
-                           </div>
-                        </Link>  
-                     </motion.div>
-                  ))
+                              </Link>  
+                           </motion.div>
+                        ))
+                     }
+                  </>
+                  :
+                  <div>
+                     Nothing to show here yet...
+                  </div>
                }
             </div>
             <div className="add-dates-icon">

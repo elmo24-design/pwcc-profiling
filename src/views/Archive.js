@@ -3,6 +3,7 @@ import { makeStyles } from '@material-ui/core/styles';
 //hooks
 import useArchivedOfficers from '../hooks/useArchivedOfficers';
 import useArchivedMembers from '../hooks/useArchivedMembers';
+import useArchivedDates from '../hooks/useArchivedDates';
 //components
 import { motion } from 'framer-motion';
 import CardArchived from '../components/CardArchived';
@@ -28,6 +29,7 @@ const Archive = () => {
    const classes = useStyles();
    const {archivedOfficers} = useArchivedOfficers('officers');
    const {archivedMembers} = useArchivedMembers('members');
+   const {archivedDates} = useArchivedDates('dates');
 
    //snackbars
    const [snackBarDeleted,setSnackBarDeleted] = useState(false) //removed state
@@ -124,6 +126,31 @@ const Archive = () => {
                                  setSnackBarDeleted={setSnackBarDeleted}
                                  setSnackBarRestored={setSnackBarRestored}
                                  collection='members'
+                                 />
+                              </div>
+                           ))
+                        }
+                     </motion.div>
+                  :
+                  <div className={classes.nothing}>
+                     Nothing to show here yet...
+                  </div>
+               }
+            </div>
+            <div className="archivedSalesDiv">
+               <h3 className="archived-title">Sales List</h3>
+               {
+                  archivedDates.length !== 0 ?
+                     <motion.div className="cards" layout>
+                        {
+                           archivedDates && archivedDates.map(item => (
+                              <div key={item.id}>
+                                 <CardArchived 
+                                 item={item}  
+                                 setSnackBarDeleted={setSnackBarDeleted}
+                                 setSnackBarRestored={setSnackBarRestored}
+                                 collection='dates'
+                                 spec={true}
                                  />
                               </div>
                            ))
