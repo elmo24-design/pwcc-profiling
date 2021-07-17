@@ -10,10 +10,10 @@ import Paper from '@material-ui/core/Paper';
 
 const useStyles = makeStyles({
   table: {
-    minWidth: 400,
+    minWidth: 600,
   },
   paper: {
-     width: 400
+     width: 600
   },
   total: {
      color: 'red'

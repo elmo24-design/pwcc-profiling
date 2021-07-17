@@ -36,7 +36,7 @@ const Dashboard = ({snackBarLogin,setSnackBarLogin}) => {
       let total4 = (parseInt(totalPaidUpOfficers) * 100) + (parseInt(totalPaidUpMembers) * 100)
       total4 = (Math.round(total4 * 100) / 100).toFixed(2)
       setTotalPaidUpAmt(total4)
-   }, [officers,members])
+   }, [members,totalSubMembers,totalPaidUpMembers,officers,totalSubOfficers,totalPaidUpOfficers])
 
    const handleClose = (event, reason) => {
       if (reason === 'clickaway') {

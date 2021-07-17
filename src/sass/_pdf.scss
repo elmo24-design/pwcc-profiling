@@ -1,0 +1,27 @@
+.heading-pdf-sales{
+   display: flex;
+   align-items: center;
+   margin-top: 2rem;
+   margin-bottom: 1rem;
+   .logo-pdf{
+      width: 3rem;
+      margin-right: 10px;
+   }
+}
+.btn-pdf{
+   border: none;
+   outline: none;
+   background-color: transparent;
+   text-transform: uppercase;
+   border: 1px solid red;
+   border-radius: 3px;
+   padding: 0.5rem;
+   color: red;
+   font-weight: bold;
+   cursor: pointer;
+   transition: 0.3s ease-in-out;
+   &:hover{
+      cursor: pointer;
+      transform: scale(1.01);
+   }
+}

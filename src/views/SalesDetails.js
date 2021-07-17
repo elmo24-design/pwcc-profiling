@@ -6,6 +6,7 @@ import EditIcon from '@material-ui/icons/Edit';
 import DeleteIcon from '@material-ui/icons/Delete';
 import SaveIcon from '@material-ui/icons/Save';
 import AddCircleIcon from '@material-ui/icons/AddCircle';
+// import GetAppIcon from '@material-ui/icons/GetApp';
 import DataTableItems from '../components/DataTableItems';
 import DataTableSales from '../components/DataTableSales';
 import { Button } from '@material-ui/core';
@@ -20,6 +21,7 @@ import Snackbar from '@material-ui/core/Snackbar';
 import { projectFirestore } from '../firebase/config';
 import { useEffect } from 'react';
 
+import PDFSales from './PDFSales';
 
 function Alert(props) {
    return <MuiAlert elevation={6} variant="filled" {...props} />;
@@ -35,7 +37,9 @@ const useStyles = makeStyles((theme) => ({
       color: 'grey',
       cursor: 'pointer'
    },
-   length: {
+   btnPDF: {
+      color: 'red',
+      borderColor: 'red',
       marginTop: '15px'
    }
 }));
@@ -50,7 +54,7 @@ const SalesDetails = ({setSnackBarArchived}) => {
    const [item,setEditItemModal] = useState(null)
    const [totalSales,setTotalSales] = useState(0)
 
-   const [report,setReport] = useState(false)
+   const [previewPdf,setPreviewPdf] = useState(false)
   
    const {
       riceItems,
@@ -281,109 +285,119 @@ const SalesDetails = ({setSnackBarArchived}) => {
                {`Total Sales PHP ${totalSales} has been saved to ${date.date}`}
             </Alert>
          </Snackbar>
-         <div className="sales-details">
-            <KeyboardBackspaceIcon 
-               className={classes.back}
-               color="primary"
-               onClick={() => history.goBack()}
-            />
-            <div className="sales-details-heading">
-               <h1>{date.date}</h1>
-               <div className="sales-icons">
-                  <div onClick={() => setEditDatesModal(date)}>
-                     <EditIcon className={classes.icon}/>
-                  </div>
-                  <div onClick={handleArchive}>
-                     <DeleteIcon className={classes.icon}/>
-                  </div>
-               </div>
-            </div>
-            <div className="items-btn">
-               <div>
-                  <Button
-                     variant="contained"
-                     className={classes.button}
+         {
+            previewPdf === false ? 
+               <div className="sales-details">
+                  <KeyboardBackspaceIcon 
+                     className={classes.back}
                      color="primary"
-                     startIcon={<AddCircleIcon />}
-                     onClick={() => setAddItemModal(true)}
-                     >
-                     Add Item
-                  </Button>
-               </div>
-               {
-                  report ? 
-                  <div>
-                     <Button
-                        variant="outlined"
-                        className={classes.button}
-                        color="secondary"
-                        onClick={() => setReport(false)}
-                        >
-                        Hide Report
-                     </Button>
-                  </div>
-                  :
-                  <div>
-                     <Button
-                        variant="outlined"
-                        className={classes.button}
-                        color="primary"
-                        onClick={() => setReport(true)}
-                        >
-                        Show Report
-                     </Button>
-                  </div>
-               }
-            </div>
-            <div className="table">
-               <DataTableItems 
-                  id={id} 
-                  setEditItemModal={setEditItemModal}
-                  handleDeleteItem={handleDeleteItem}
-                  riceItems={riceItems}
-               />
-               <div className={classes.length}>
-                  Items: <span>{riceItems.length}</span>
-               </div>
-            </div>
-            {
-               report &&
-                  <div className="sales-report">
-                     <h1>Sales Report: </h1>
-                     <div className="sales-report-table">
-                        <DataTableSales 
-                           riceItems={riceItems} 
-                           v1Total={v1Total} 
-                           v2Total={v2Total}
-                           v3Total={v3Total}
-                           v4Total={v4Total}
-                           v5Total={v5Total}
-                           v6Total={v6Total}
-                           v7Total={v7Total}
-                           v8Total={v8Total}
-                           v9Total={v9Total}
-                           v10Total={v10Total}
-                           v11Total={v11Total}
-                           v12Total={v12Total}
-                        />
-                     </div>
-                     <div className="total-sales">
-                        <p>Total Sales: <span>PHP {totalSales.toFixed(2)}</span></p>
-                        <div>
-                        <Button
-                           variant="outlined"
-                           color="primary"
-                           size="small"
-                           startIcon={<SaveIcon />}
-                           onClick={saveTotal}
-                           >
-                           Save
-                           </Button>
+                     onClick={() => history.goBack()}
+                  />
+                  <div className="sales-details-heading">
+                     <h1>{date.date}</h1>
+                     <div className="sales-icons">
+                        <div onClick={() => setEditDatesModal(date)}>
+                           <EditIcon className={classes.icon}/>
+                        </div>
+                        <div onClick={handleArchive}>
+                           <DeleteIcon className={classes.icon}/>
                         </div>
                      </div>
                   </div>
-            }
-         </div>
+                  <div className="items-btn">
+                     <div>
+                        <Button
+                           variant="contained"
+                           className={classes.button}
+                           color="primary"
+                           startIcon={<AddCircleIcon />}
+                           onClick={() => setAddItemModal(true)}
+                           >
+                           Add Item
+                        </Button>
+                     </div>
+                     <div className={classes.length}>
+                        Items: <span>{riceItems.length}</span>
+                     </div>
+                  </div>
+                  <div className="table">
+                     <DataTableItems 
+                        setEditItemModal={setEditItemModal}
+                        handleDeleteItem={handleDeleteItem}
+                        riceItems={riceItems}
+                     />
+                    
+                  </div>
+                  {
+                     riceItems.length !== 0 &&
+                        <div className="sales-report">
+                           <div className="sales-report-heading">
+                              <h1>Sales Report: </h1>
+                              <div>
+                                 <Button
+                                    variant="outlined"
+                                    className={classes.btnPDF}
+                                    onClick={() => setPreviewPdf(true)}
+                                    size="small"
+                                    >
+                                    Preview PDF
+                                 </Button>
+                              </div>
+                           </div>
+                           <div className="sales-report-table">
+                              <DataTableSales 
+                                 riceItems={riceItems} 
+                                 v1Total={v1Total} 
+                                 v2Total={v2Total}
+                                 v3Total={v3Total}
+                                 v4Total={v4Total}
+                                 v5Total={v5Total}
+                                 v6Total={v6Total}
+                                 v7Total={v7Total}
+                                 v8Total={v8Total}
+                                 v9Total={v9Total}
+                                 v10Total={v10Total}
+                                 v11Total={v11Total}
+                                 v12Total={v12Total}
+                              />
+                           </div>
+                           <div className="total-sales">
+                              <p>Total Sales: <span>PHP {totalSales.toFixed(2)}</span></p>
+                              <div>
+                              <Button
+                                 variant="outlined"
+                                 color="primary"
+                                 size="small"
+                                 startIcon={<SaveIcon />}
+                                 onClick={saveTotal}
+                                 >
+                                 Save
+                                 </Button>
+                              </div>
+                           </div>
+                        </div>
+                  }
+               </div>
+         :
+         <PDFSales 
+            setPreviewPdf={setPreviewPdf}
+            riceItems={riceItems} 
+            v1Total={v1Total} 
+            v2Total={v2Total}
+            v3Total={v3Total}
+            v4Total={v4Total}
+            v5Total={v5Total}
+            v6Total={v6Total}
+            v7Total={v7Total}
+            v8Total={v8Total}
+            v9Total={v9Total}
+            v10Total={v10Total}
+            v11Total={v11Total}
+            v12Total={v12Total}
+            totalSales={totalSales}
+            date={date}
+         />
+         }
       </>
    );
 }

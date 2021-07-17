@@ -3,7 +3,7 @@ import { motion } from 'framer-motion';
 import { makeStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
-import { projectFirestore, timestamp } from '../firebase/config';
+import { projectFirestore } from '../firebase/config';
 
 const backdrop = {
     hidden: {
