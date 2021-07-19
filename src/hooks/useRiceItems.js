@@ -16,6 +16,7 @@ const useRiceItems = (collection,id) => {
    const [v10Total, setV10Total] = useState(0)
    const [v11Total, setV11Total] = useState(0)
    const [v12Total, setV12Total] = useState(0)
+   const [v13Total, setV13Total] = useState(0)
 
    useEffect(() => {
       const unsub = projectFirestore.collection(collection)
@@ -35,6 +36,7 @@ const useRiceItems = (collection,id) => {
          let total10 = 0
          let total11 = 0
          let total12 = 0
+         let total13 = 0
 
          snap.docs.forEach(doc=> {
             if(doc.data().ownerId === id){
@@ -75,6 +77,9 @@ const useRiceItems = (collection,id) => {
                if(doc.data().variety === "Smart Choice"){
                   setV12Total(total12 += parseInt(doc.data().total))
                }
+               if(doc.data().variety === "Don Frank"){
+                  setV13Total(total13 += parseInt(doc.data().total))
+               }
             }
          })
          setRiceItems(results)
@@ -96,7 +101,8 @@ const useRiceItems = (collection,id) => {
       v9Total,
       v10Total,
       v11Total,
-      v12Total
+      v12Total,
+      v13Total
    }
 }
  

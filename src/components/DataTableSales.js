@@ -34,7 +34,8 @@ const DataTableSales = (
      v9Total,
      v10Total,
      v11Total,
-     v12Total
+     v12Total,
+     v13Total
    }
    ) => {
 
@@ -57,6 +58,7 @@ const DataTableSales = (
       createData('Malagkit', v10Total.toFixed(2)),
       createData('Thailand', v11Total.toFixed(2)),
       createData('Smart Choice', v12Total.toFixed(2)),
+      createData('Don Frank', v13Total.toFixed(2))
    ];
 
   return (

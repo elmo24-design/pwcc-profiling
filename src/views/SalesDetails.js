@@ -69,7 +69,8 @@ const SalesDetails = ({setSnackBarArchived}) => {
       v9Total,
       v10Total,
       v11Total,
-      v12Total
+      v12Total,
+      v13Total
    } = useRiceItems('riceItems',id)
 
    const compute = () => {
@@ -85,7 +86,8 @@ const SalesDetails = ({setSnackBarArchived}) => {
       parseInt(v9Total) +
       parseInt(v10Total) +
       parseInt(v11Total) +
-      parseInt(v12Total)
+      parseInt(v12Total) +
+      parseInt(v13Total)
 
       setTotalSales(total)
    }
@@ -104,7 +106,9 @@ const SalesDetails = ({setSnackBarArchived}) => {
       v9Total,
       v10Total,
       v11Total,
-      v12Total])
+      v12Total,
+      v13Total
+   ])
 
    //Snackbars
    const [snackBarUpdated,setSnackBarUpdated] = useState(false) //updated date state
@@ -359,6 +363,7 @@ const SalesDetails = ({setSnackBarArchived}) => {
                                  v10Total={v10Total}
                                  v11Total={v11Total}
                                  v12Total={v12Total}
+                                 v13Total={v13Total}
                               />
                            </div>
                            <div className="total-sales">
@@ -394,6 +399,7 @@ const SalesDetails = ({setSnackBarArchived}) => {
             v10Total={v10Total}
             v11Total={v11Total}
             v12Total={v12Total}
+            v13Total={v13Total}
             totalSales={totalSales}
             date={date}
          />

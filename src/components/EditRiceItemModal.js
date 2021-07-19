@@ -96,6 +96,10 @@ const useStyles = makeStyles((theme) => ({
       value: 'Smart Choice',
       label: 'Smart Choice',
    },
+   {
+      value: 'Don Frank',
+      label: 'Don Frank',
+   },
 ]
  
 const EditRiceItemModal = ({item,setEditItemModal,setItemUpdated}) => {
